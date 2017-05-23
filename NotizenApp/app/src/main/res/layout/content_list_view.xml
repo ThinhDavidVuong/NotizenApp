@@ -8,7 +8,7 @@
     tools:context="ch.bbcag.notizenapp.ListView"
     tools:showIn="@layout/activity_list_view">
 
-    <TextView android:text="Badi 1"
+    <TextView android:text="Liste"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/badiinfos"
