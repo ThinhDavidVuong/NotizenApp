@@ -3,6 +3,14 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView android:text="Name:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/category"
+        android:textSize="20dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"/>
+
     <EditText
         android:id="@+id/newlistname"
         android:inputType="text"
@@ -13,11 +21,4 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
         android:hint="" />
-
-    <Spinner
-    android:id="@+id/categoryspinner1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:drawable/btn_dropdown"
-    android:spinnerMode="dropdown" />
 </LinearLayout>
