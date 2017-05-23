@@ -8,10 +8,10 @@
     tools:context="ch.bbcag.notizenapp.ListView"
     tools:showIn="@layout/activity_list_view">
 
-    <TextView android:text="Liste"
+    <TextView android:text="Kategory XY"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/badiinfos"
+        android:id="@+id/categoryname"
         android:textSize="20dp"
         tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="0dp" />

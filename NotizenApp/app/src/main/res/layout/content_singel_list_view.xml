@@ -8,4 +8,20 @@
     tools:context="ch.bbcag.notizenapp.SingelListView"
     tools:showIn="@layout/activity_singel_list_view">
 
+    <TextView android:text="Liste XY"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/listname"
+        android:textSize="20dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <ListView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/listofquest"
+        android:layout_gravity="bottom"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp" />
+
 </android.support.constraint.ConstraintLayout>

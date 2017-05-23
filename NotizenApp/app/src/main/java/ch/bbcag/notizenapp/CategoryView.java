@@ -73,8 +73,6 @@ public class CategoryView extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), SingelListView.class);
                 String nameofselected = parent.getItemAtPosition(position).toString();
 
-
-
                 for(int i = 0; i < Categories.size(); i++){
                     ListofCategories.add(Categories.get(i).name);
                 }
