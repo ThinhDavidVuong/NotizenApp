@@ -1,5 +1,6 @@
 package View;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -34,7 +35,10 @@ public class ListView extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addNewList();
+                CreateListDialog dlg = new CreateListDialog();
+                String tag = "";
+                FragmentManager fm = getFragmentManager();
+                dlg.show(fm, tag);
             }
         });
 
