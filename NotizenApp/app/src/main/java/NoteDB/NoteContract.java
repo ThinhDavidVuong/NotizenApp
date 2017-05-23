@@ -1,4 +1,4 @@
-package ch.bbcag.notizenapp;
+package NoteDB;
 
 import android.provider.BaseColumns;
 
@@ -26,27 +26,14 @@ public class NoteContract {
     public static class ListEntry implements BaseColumns {
         public static final String TABLE_LIST = "Liste";
         public static final String COLUMN_NAME_LIST = "liste_name";
+        public static final String COLUMN_NAME_CATEGORY_ID = "kategorie_id";
     }
 
     public static final String SQL_CREATE_LIST =
             "CREATE TABLE " + ListEntry.TABLE_LIST + " (" +
                     ListEntry._ID + " INTEGER PRIMARY KEY," +
-                    ListEntry.COLUMN_NAME_LIST + " TEXT)";
-
-    /* Inner class that defines the table "Liste_Kategorie" */
-    public static class List_Category implements BaseColumns {
-        public static final String TABLE_LIST_CATEGORY = "Liste_Kategorie";
-        public static final String COLUMN_NAME_LIST_ID = "liste_id";
-        public static final String COLUMN_NAME_CATEGORY_ID = "kategorie_id";
-    }
-
-    public static final String SQL_CREATE_LIST_CATEGORY =
-            "CREATE TABLE " + List_Category.TABLE_LIST_CATEGORY + " (" +
-                    List_Category._ID + " INTEGER PRIMARY KEY," +
-                    List_Category.COLUMN_NAME_LIST_ID + " INTEGER," +
-                    List_Category.COLUMN_NAME_CATEGORY_ID + " INTEGER," +
-                    "FOREIGN KEY("+List_Category.COLUMN_NAME_LIST_ID+") REFERENCES "+ListEntry.TABLE_LIST+"("+ListEntry._ID+")," +
-                    "FOREIGN KEY("+List_Category.COLUMN_NAME_CATEGORY_ID+") REFERENCES "+CategoryEntry.TABLE_CATEGORY+"("+CategoryEntry._ID+")";
+                    ListEntry.COLUMN_NAME_LIST + " TEXT," +
+                    "FOREIGN KEY("+ ListEntry.COLUMN_NAME_CATEGORY_ID+") REFERENCES "+CategoryEntry.TABLE_CATEGORY+"("+CategoryEntry._ID+")";
 
     /* Inner class that defines the table "Aufgabe" */
     public static class Task implements BaseColumns {
@@ -61,7 +48,7 @@ public class NoteContract {
                     Task._ID + " INTEGER PRIMARY KEY," +
                     Task.COLUMN_NAME_TASK + " TEXT," +
                     Task.COLUMN_NAME_CHECKED + " BLOB," +
-                    "FOREIGN KEY("+ Task.COLUMN_NAME_LIST_ID+") REFERENCES "+List_Category.TABLE_LIST_CATEGORY+"("+List_Category._ID+")";
+                    "FOREIGN KEY("+ Task.COLUMN_NAME_LIST_ID+") REFERENCES "+ListEntry.TABLE_LIST+"("+ListEntry._ID+")";
 
 
     public static final String SQL_DELETE_ENTRIES =

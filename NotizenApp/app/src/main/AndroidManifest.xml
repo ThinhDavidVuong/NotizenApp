@@ -10,21 +10,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ListView"
-            android:label="@string/title_activity_list_view"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".SingelListView"
-            android:label="@string/title_activity_singel_list_view"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".CategoryView"
-            android:label="@string/title_activity_category_view"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".NotizenApp"
+            android:label="@string/title_activity_app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="View.ListView"
+            android:label="@string/title_activity_list_view"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="View.SingelListView"
+            android:label="@string/title_activity_singel_list_view"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="View.CategoryView"
+            android:label="@string/title_activity_category_view"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

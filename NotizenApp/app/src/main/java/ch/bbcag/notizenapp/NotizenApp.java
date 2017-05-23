@@ -1,8 +1,5 @@
 package ch.bbcag.notizenapp;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -10,7 +7,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ch.bbcag.notizenapp.R.attr.title;
+import Model.CategoryModel;
+import NoteDB.NoteController;
+import NoteDB.NoteDbHelper;
 
 public class NotizenApp extends AppCompatActivity {
 
@@ -23,12 +22,12 @@ public class NotizenApp extends AppCompatActivity {
         this.mDbHelper = new NoteDbHelper(this);
         this.controller = new NoteController(mDbHelper);
         setContentView(R.layout.activity_notizen_app);
-        controller.insert();
-        List itemIds = controller.readDB();
-        for(int i = 0; i < itemIds.size(); i++)
-        {
-            Toast.makeText(this, itemIds.get(i).toString(), Toast.LENGTH_LONG);
-        }
+
+        controller.insertCategory();
+        ArrayList<CategoryModel> allCategory = controller.readAllCategories();
+
+        controller.insertList(allCategory.get(1).id);
+        controller.readAllLists(allCategory.get(1).id);
     }
 
     @Override

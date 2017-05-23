@@ -1,4 +1,4 @@
-package ch.bbcag.notizenapp;
+package Model;
 
 /**
  * Created by berpet on 23.05.2017.

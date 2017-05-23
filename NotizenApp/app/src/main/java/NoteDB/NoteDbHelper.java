@@ -1,4 +1,4 @@
-package ch.bbcag.notizenapp;
+package NoteDB;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

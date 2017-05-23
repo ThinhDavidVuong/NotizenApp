@@ -1,9 +1,8 @@
-package ch.bbcag.notizenapp;
+package View;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,46 +13,55 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class CategoryView extends AppCompatActivity {
+import Model.ListModel;
+import ch.bbcag.notizenapp.R;
 
-    ArrayAdapter ListofCategories;
-    private ArrayList<CategoryModel> Categories = new ArrayList<CategoryModel>();
+public class ListView extends AppCompatActivity {
+
+    ArrayAdapter ListofLists;
+    private int category_id;
+    private String category_name;
+    private ArrayList<ListModel> Listen = new ArrayList<ListModel>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_view);
+        setContentView(R.layout.activity_list_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addCategory);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addList);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                addNewList();
             }
         });
 
-        //Categories = GetCategoriesFromDB();
-        setImage();
+        Intent intent = getIntent();
 
+        category_id = Integer.parseInt(intent.getStringExtra("category_id"));
+        category_name = intent.getStringExtra("name");
+
+        //GetListenVonDBbyCategorieID(category_id);
+
+        setImage();
         loadListsInListView();
     }
 
     private  void setImage(){
-        ImageView img = (ImageView) findViewById(R.id.addCategory);
+        ImageView img = (ImageView) findViewById(R.id.addList);
         img.setImageResource(R.drawable.ic_add_black_36dp);
     }
 
     private void loadListsInListView() {
 
-        android.widget.ListView ListViewListsodlists = (android.widget.ListView) findViewById(R.id.Listofcatrogries);
-        ListofCategories = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        android.widget.ListView ListViewListsodlists = (android.widget.ListView) findViewById(R.id.Listoflists);
+        ListofLists = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 
 
-
-        ListViewListsodlists.setAdapter(ListofCategories);
+        
+        ListViewListsodlists.setAdapter(ListofLists);
         AdapterView.OnItemClickListener mListClickedHandler = new AdapterView.OnItemClickListener() {
 
             @Override
@@ -63,17 +71,17 @@ public class CategoryView extends AppCompatActivity {
 
 
 
-                for(int i = 0; i < Categories.size(); i++){
-                    ListofCategories.add(Categories.get(i).name);
+                for(int i = 0; i < Listen.size(); i++){
+                    ListofLists.add(Listen.get(i).name);
                 }
 
-                for(int i = 0; i < Categories.size(); i++){
-                    if(Categories.get(i).name == nameofselected){
-                        intent.putExtra("category_id", Integer.toString(Categories.get(i).id));
+                for(int i = 0; i < Listen.size(); i++){
+                    if(Listen.get(i).name == nameofselected){
+                        intent.putExtra("listid", Integer.toString(Listen.get(i).id));
                     }
                 }
 
-                Toast.makeText(CategoryView.this, nameofselected, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ListView.this, nameofselected, Toast.LENGTH_SHORT).show();
 
                 intent.putExtra("name", nameofselected);
                 startActivity(intent);
@@ -83,5 +91,16 @@ public class CategoryView extends AppCompatActivity {
 
     }
 
+    private void addNewList(){
+
+    }
+
+    private void editcategory(){
+
+    }
+
+    private void deleteCategory(){
+
+    }
 
 }
