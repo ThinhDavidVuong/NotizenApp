@@ -1,12 +1,6 @@
 package ch.bbcag.notizenapp;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
-
-import static ch.bbcag.notizenapp.R.attr.subtitle;
-import static ch.bbcag.notizenapp.R.attr.title;
-import static java.security.AccessController.getContext;
 
 /**
  * Created by bvuond on 23.05.2017.
@@ -17,20 +11,61 @@ public class NoteContract {
     // make the constructor private.
     private NoteContract() {}
 
-    /* Inner class that defines the table contents */
-    public static class NoteEntry implements BaseColumns {
-        public static final String TABLE_NAME = "category";
-        public static final String COLUMN_NAME_NAME = "name";
+    /* Inner class that defines the table "Kategorie" */
+    public static class CategoryEntry implements BaseColumns {
+        public static final String TABLE_CATEGORY = "Kategorie";
+        public static final String COLUMN_NAME_CATEGORY = "kategorie_name";
     }
 
-    public static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + NoteEntry.TABLE_NAME + " (" +
-                    NoteEntry._ID + " INTEGER PRIMARY KEY," +
-                    NoteEntry.COLUMN_NAME_NAME + " TEXT)";
+    public static final String SQL_CREATE_CATEGORY =
+            "CREATE TABLE " + CategoryEntry.TABLE_CATEGORY + " (" +
+                    CategoryEntry._ID + " INTEGER PRIMARY KEY," +
+                    CategoryEntry.COLUMN_NAME_CATEGORY + " TEXT)";
+
+    /* Inner class that defines the table "Liste" */
+    public static class ListEntry implements BaseColumns {
+        public static final String TABLE_LIST = "Liste";
+        public static final String COLUMN_NAME_LIST = "liste_name";
+    }
+
+    public static final String SQL_CREATE_LIST =
+            "CREATE TABLE " + ListEntry.TABLE_LIST + " (" +
+                    ListEntry._ID + " INTEGER PRIMARY KEY," +
+                    ListEntry.COLUMN_NAME_LIST + " TEXT)";
+
+    /* Inner class that defines the table "Liste_Kategorie" */
+    public static class List_Category implements BaseColumns {
+        public static final String TABLE_LIST_CATEGORY = "Liste_Kategorie";
+        public static final String COLUMN_NAME_LIST_ID = "liste_id";
+        public static final String COLUMN_NAME_CATEGORY_ID = "kategorie_id";
+    }
+
+    public static final String SQL_CREATE_LIST_CATEGORY =
+            "CREATE TABLE " + List_Category.TABLE_LIST_CATEGORY + " (" +
+                    List_Category._ID + " INTEGER PRIMARY KEY," +
+                    List_Category.COLUMN_NAME_LIST_ID + " INTEGER," +
+                    List_Category.COLUMN_NAME_CATEGORY_ID + " INTEGER," +
+                    "FOREIGN KEY("+List_Category.COLUMN_NAME_LIST_ID+") REFERENCES "+ListEntry.TABLE_LIST+"("+ListEntry._ID+")," +
+                    "FOREIGN KEY("+List_Category.COLUMN_NAME_CATEGORY_ID+") REFERENCES "+CategoryEntry.TABLE_CATEGORY+"("+CategoryEntry._ID+")";
+
+    /* Inner class that defines the table "Aufgabe" */
+    public static class Task implements BaseColumns {
+        public static final String TABLE_TASK = "Aufgabe";
+        public static final String COLUMN_NAME_TASK = "aufgabe_name";
+        public static final String COLUMN_NAME_CHECKED = "isChecked";
+        public static final String COLUMN_NAME_LIST_ID = "liste_id";
+    }
+
+    public static final String SQL_CREATE_TASK =
+            "CREATE TABLE " + Task.TABLE_TASK + " (" +
+                    Task._ID + " INTEGER PRIMARY KEY," +
+                    Task.COLUMN_NAME_TASK + " TEXT," +
+                    Task.COLUMN_NAME_CHECKED + " BLOB," +
+                    "FOREIGN KEY("+ Task.COLUMN_NAME_LIST_ID+") REFERENCES "+List_Category.TABLE_LIST_CATEGORY+"("+List_Category._ID+")";
+
 
     public static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + NoteEntry.TABLE_NAME;
-
+            "DROP TABLE IF EXISTS " + CategoryEntry.TABLE_CATEGORY;
 }
 
 

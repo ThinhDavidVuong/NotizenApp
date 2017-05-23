@@ -1,33 +1,39 @@
 package ch.bbcag.notizenapp;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static ch.bbcag.notizenapp.R.attr.title;
-import static java.security.AccessController.getContext;
 
 public class NotizenApp extends AppCompatActivity {
+
+    NoteDbHelper mDbHelper;
+    NoteController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.mDbHelper = new NoteDbHelper(this);
+        this.controller = new NoteController(mDbHelper);
         setContentView(R.layout.activity_notizen_app);
-        insert();
+        controller.insert();
+        List itemIds = controller.readDB();
+        for(int i = 0; i < itemIds.size(); i++)
+        {
+            Toast.makeText(this, itemIds.get(i).toString(), Toast.LENGTH_LONG);
+        }
     }
 
-    public void insert() {
-        // Gets the data repository in write mode
-        NoteDbHelper mDbHelper = new NoteDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-        // Create a new map of values, where column names are the keys
-        ContentValues values = new ContentValues();
-        values.put(NoteContract.NoteEntry.COLUMN_NAME_NAME, title);
-
-        // Insert the new row, returning the primary key value of the new row
-        long newRowId = db.insert(NoteContract.NoteEntry.TABLE_NAME, null, values);
+    @Override
+    protected void onDestroy() {
+        mDbHelper.close();
+        super.onDestroy();
     }
 }

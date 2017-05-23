@@ -11,16 +11,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class NoteDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "FeedReader.db";
+    public static final String DATABASE_NAME = "Note.db";
 
 
     public NoteDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
     }
 
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(NoteContract.SQL_CREATE_ENTRIES);
+        db.execSQL(NoteContract.SQL_CREATE_CATEGORY);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
