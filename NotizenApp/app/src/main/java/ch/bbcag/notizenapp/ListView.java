@@ -17,8 +17,9 @@ import java.util.ArrayList;
 public class ListView extends AppCompatActivity {
 
     ArrayAdapter ListofLists;
-    private int listid;
-    private ArrayList Listen = new ArrayList();
+    private int category_id;
+    private String category_name;
+    private ArrayList<ListModel> Listen = new ArrayList<ListModel>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,14 @@ public class ListView extends AppCompatActivity {
                 addNewList();
             }
         });
+
+        Intent intent = getIntent();
+
+        category_id = Integer.parseInt(intent.getStringExtra("category_id"));
+        category_name = intent.getStringExtra("name");
+
+        //GetListenVonDBbyCategorieID(category_id);
+
         setImage();
         loadListsInListView();
     }
@@ -61,31 +70,18 @@ public class ListView extends AppCompatActivity {
 
 
                 for(int i = 0; i < Listen.size(); i++){
-                    ListofLists.add(Listen[i]);
+                    ListofLists.add(Listen.get(i).name);
                 }
 
-                intent.putExtra("listid", listid);
-                //Toast.makeText(MainActivity.this, selected, Toast.LENGTH_SHORT).show();
-
-
-
-                //Intent mit Zusatzinformationen - hier die Badi Nummer
-
-                if (selected.equals(getString(R.string.badaarberg))) {
-                    intent.putExtra("badi", "71");
-
-                } else if (selected.equals(getString(R.string.badadelboden))) {
-                    intent.putExtra("badi", "27");
-                } else if (selected.equals(getString(R.string.badbern))) {
-
-                } else if (selected.equals(getString(R.string.seebrinz))) {
-                    intent.putExtra("badi", "143");
-                } else if (selected.equals(getString(R.string.badburgdorf))) {
-                    intent.putExtra("badi", "1");
-                } else if (selected.equals(getString(R.string.badkirchberg))) {
-                    intent.putExtra("badi", "12");
+                for(int i = 0; i < Listen.size(); i++){
+                    if(Listen.get(i).name == nameofselected){
+                        intent.putExtra("listid", Integer.toString(Listen.get(i).id));
+                    }
                 }
-                intent.putExtra("name", selected);
+
+                Toast.makeText(ListView.this, nameofselected, Toast.LENGTH_SHORT).show();
+
+                intent.putExtra("name", nameofselected);
                 startActivity(intent);
             }
         };
