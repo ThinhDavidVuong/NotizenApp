@@ -1,17 +1,19 @@
-package ch.bbcag.notizenapp;
+package Update;
 
-        import android.app.Dialog;
-        import android.content.DialogInterface;
-        import android.os.Bundle;
-        import android.app.DialogFragment;
-        import android.app.AlertDialog;
-        import android.view.LayoutInflater;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.app.DialogFragment;
+import android.app.AlertDialog;
+import android.view.LayoutInflater;
+
+import ch.bbcag.notizenapp.R;
 
 /**
  * Created by berpet on 23.05.2017.
  */
 
-public class DeleteListDialog extends DialogFragment {
+public class UpdateQuestDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
@@ -19,14 +21,14 @@ public class DeleteListDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
 
-        builder.setTitle("Liste löschen")
-                .setMessage("Sind sie sicher, dass sie die Liste löschen wollen?")
-                .setPositiveButton("löschen", new DialogInterface.OnClickListener() {
+        builder.setMessage("Aufgabe umbennenen")
+                .setView(inflater.inflate(R.layout.dialog_add_list, null))
+                .setPositiveButton("ändern", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // FIRE ZE MISSILES!
                     }
                 })
-                .setNegativeButton("abbruch", new DialogInterface.OnClickListener() {
+                .setNegativeButton("abbrechen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
                     }

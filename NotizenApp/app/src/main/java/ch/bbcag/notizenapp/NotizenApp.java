@@ -2,12 +2,11 @@ package ch.bbcag.notizenapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import Model.CategoryModel;
+import Model.ListModel;
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
 
@@ -24,10 +23,12 @@ public class NotizenApp extends AppCompatActivity {
         setContentView(R.layout.activity_notizen_app);
 
         controller.insertCategory();
-        ArrayList<CategoryModel> allCategory = controller.readAllCategories();
+        ArrayList<CategoryModel> allCategories = controller.readAllCategories();
 
-        controller.insertList(allCategory.get(1).id);
-        controller.readAllLists(allCategory.get(1).id);
+        controller.insertList(allCategories.get(1).id);
+        ArrayList<ListModel> allLists = controller.readAllLists(allCategories.get(1).id);
+
+        controller.insertTask(allLists.get(1).id);
     }
 
     @Override
