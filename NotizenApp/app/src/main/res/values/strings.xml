@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">NotizenApp</string>
     <string name="title_activity_app_name">NotizenApp</string>
-    <string name="title_activity_list_view">Notiz App</string>
-    <string name="title_activity_singel_list_view">Notiz App</string>
-    <string name="title_activity_category_view">Notiz App</string>
+    <string name="title_activity_list_view">Notiz App2</string>
+    <string name="title_activity_singel_list_view">Notiz App3</string>
+    <string name="title_activity_category_view">Notiz App1</string>
 </resources>

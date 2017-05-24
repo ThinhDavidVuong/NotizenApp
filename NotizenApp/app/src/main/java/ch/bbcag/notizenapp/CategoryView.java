@@ -54,10 +54,8 @@ public class CategoryView extends AppCompatActivity {
             }
         });
 
-        Categories = nc.readAllCategories();
         setImage();
-
-        loadListsInListView();
+        loadList();
     }
 
     private  void setImage(){
@@ -70,17 +68,17 @@ public class CategoryView extends AppCompatActivity {
         android.widget.ListView ListViewListsodlists = (android.widget.ListView) findViewById(R.id.Listofcatrogries);
         ListofCategories = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 
+        for(int i = 0; i < Categories.size(); i++){
+            ListofCategories.add(Categories.get(i).name);
+        }
+
         ListViewListsodlists.setAdapter(ListofCategories);
         AdapterView.OnItemClickListener mListClickedHandler = new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), SingelListView.class);
+                Intent intent = new Intent(getApplicationContext(), ListView.class);
                 String nameofselected = parent.getItemAtPosition(position).toString();
-
-                for(int i = 0; i < Categories.size(); i++){
-                    ListofCategories.add(Categories.get(i).name);
-                }
 
                 for(int i = 0; i < Categories.size(); i++){
                     if(Categories.get(i).name == nameofselected){
@@ -96,6 +94,11 @@ public class CategoryView extends AppCompatActivity {
         };
         ListViewListsodlists.setOnItemClickListener(mListClickedHandler);
 
+    }
+
+    public void loadList(){
+        Categories = nc.readAllCategories();
+        loadListsInListView();
     }
 
     @Override
