@@ -1,4 +1,4 @@
-package View;
+package ch.bbcag.notizenapp;
 
 import android.app.FragmentManager;
 import android.os.Bundle;

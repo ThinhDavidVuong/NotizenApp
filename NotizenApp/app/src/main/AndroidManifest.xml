@@ -11,15 +11,15 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="View.ListView"
+            android:name=".ListView"
             android:label="@string/title_activity_list_view"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="View.SingelListView"
+            android:name=".SingelListView"
             android:label="@string/title_activity_singel_list_view"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="View.CategoryView"
+            android:name=".CategoryView"
             android:label="@string/title_activity_category_view"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

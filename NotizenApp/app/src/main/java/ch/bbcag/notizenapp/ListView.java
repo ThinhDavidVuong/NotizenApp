@@ -1,4 +1,4 @@
-package View;
+package ch.bbcag.notizenapp;
 
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -18,7 +18,6 @@ import Dialog.CreateListDialog;
 import Model.ListModel;
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
-import ch.bbcag.notizenapp.R;
 
 public class ListView extends AppCompatActivity {
 

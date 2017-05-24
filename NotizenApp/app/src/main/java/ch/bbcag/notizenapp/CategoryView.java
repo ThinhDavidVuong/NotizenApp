@@ -1,4 +1,4 @@
-package View;
+package ch.bbcag.notizenapp;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import NoteDB.*;
 import Model.*;
 import Dialog.*;
-import ch.bbcag.notizenapp.R;
 
 public class CategoryView extends AppCompatActivity {
 
