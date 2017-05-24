@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import Dialog.CreateListDialog;
 import Model.ListModel;
 import ch.bbcag.notizenapp.R;
 

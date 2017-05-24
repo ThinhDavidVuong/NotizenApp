@@ -1,13 +1,7 @@
 <resources>
     <string name="app_name">NotizenApp</string>
-<<<<<<< HEAD
     <string name="title_activity_app_name">NotizenApp</string>
-    <string name="title_activity_list_view">ListView</string>
-    <string name="title_activity_singel_list_view">SingelListView</string>
-    <string name="title_activity_category_view">CategoryView</string>
-=======
     <string name="title_activity_list_view">Notiz App</string>
     <string name="title_activity_singel_list_view">Notiz App</string>
     <string name="title_activity_category_view">Notiz App</string>
->>>>>>> c36910846f23a09c9804acf6c481268cc26e8f38
 </resources>
