@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.app.DialogFragment;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
+import ch.bbcag.notizenapp.R;
 
 /**
  * Created by berpet on 23.05.2017.

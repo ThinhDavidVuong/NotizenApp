@@ -15,14 +15,17 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import Model.CategoryModel;
-import Dialog.CreateCategoryDialog;
+import NoteDB.*;
+import Model.*;
+import Dialog.*;
 import ch.bbcag.notizenapp.R;
 
 public class CategoryView extends AppCompatActivity {
 
     ArrayAdapter ListofCategories;
     private ArrayList<CategoryModel> Categories = new ArrayList<CategoryModel>();
+    private NoteDbHelper nh;
+    private NoteController nc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,10 @@ public class CategoryView extends AppCompatActivity {
             }
         });
 
-        //Categories = GetCategoriesFromDB();
+        nh = new NoteDbHelper(this);
+        nc = new NoteController(nh);
+
+        Categories = nc.readAllCategories();
         setImage();
 
         loadListsInListView();
@@ -89,5 +95,10 @@ public class CategoryView extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        nh.close();
+        super.onDestroy();
+    }
 
 }

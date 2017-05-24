@@ -25,13 +25,13 @@ public class NoteController {
         this.db = mDbHelper.getReadableDatabase();
     }
 
-    public void insertCategory() {
+    public void insertCategory(String input) {
         // Gets the data repository in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         // Create a new map of values, where column names are the keys
         // USER GIBT INPUT <-----------------
-        String name = "Schule";
+        String name = input;
         ContentValues values = new ContentValues();
         values.put(NoteContract.CategoryEntry.COLUMN_NAME_CATEGORY, name);
 

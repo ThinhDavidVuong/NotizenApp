@@ -21,14 +21,6 @@ public class NotizenApp extends AppCompatActivity {
         this.mDbHelper = new NoteDbHelper(this);
         this.controller = new NoteController(mDbHelper);
         setContentView(R.layout.activity_notizen_app);
-
-        controller.insertCategory();
-        ArrayList<CategoryModel> allCategories = controller.readAllCategories();
-
-        controller.insertList(allCategories.get(1).id);
-        ArrayList<ListModel> allLists = controller.readAllLists(allCategories.get(1).id);
-
-        controller.insertTask(allLists.get(1).id);
     }
 
     @Override
