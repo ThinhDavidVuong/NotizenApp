@@ -7,7 +7,28 @@ import android.app.DialogFragment;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 
+import NoteDB.NoteController;
+import NoteDB.NoteDbHelper;
+import ch.bbcag.notizenapp.ListView;
+
 public class DeleteListDialog extends DialogFragment {
+
+    private NoteDbHelper nh;
+    private NoteController nc;
+
+    private ListView lv;
+
+    private Bundle Test;
+
+    private int listid;
+
+    public DeleteListDialog(ListView context, Bundle savedInstanceState, int Listid){
+        lv = context;
+        nh = new NoteDbHelper(context);
+        nc = new NoteController(nh);
+        this.listid = Listid;
+        this.Test = savedInstanceState;
+    }
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
@@ -29,5 +50,11 @@ public class DeleteListDialog extends DialogFragment {
                 });
 
         return builder.create();
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog){
+        nh.close();
+        super.onDismiss(dialog);
     }
 }

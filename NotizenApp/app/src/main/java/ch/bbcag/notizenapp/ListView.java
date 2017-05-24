@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ public class ListView extends AppCompatActivity {
     private String category_name;
     private ArrayList<ListModel> Listen = new ArrayList<ListModel>();
 
+    private ListView lv = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,29 +40,27 @@ public class ListView extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Intent intent = getIntent();
+        category_id = Integer.parseInt(intent.getStringExtra("category_id"));
+        category_name = intent.getStringExtra("name");
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addList);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CreateListDialog dlg = new CreateListDialog();
+                CreateListDialog dlg = new CreateListDialog(lv, Bundle.EMPTY, category_id);
                 String tag = "";
                 FragmentManager fm = getFragmentManager();
                 dlg.show(fm, tag);
             }
         });
 
-        Intent intent = getIntent();
-
         nh = new NoteDbHelper(this);
         nc = new NoteController(nh);
 
-        category_id = Integer.parseInt(intent.getStringExtra("category_id"));
-        category_name = intent.getStringExtra("name");
-
-        //GetListenVonDBbyCategorieID(category_id);
-
         setImage();
-        loadListsInListView();
+        setCategoryName();
+        loadList();
     }
 
     private  void setImage(){
@@ -67,12 +68,19 @@ public class ListView extends AppCompatActivity {
         img.setImageResource(R.drawable.ic_add_black_36dp);
     }
 
+    private void setCategoryName(){
+        TextView text = (TextView) findViewById(R.id.categoryname);
+        text.setText(category_name);
+    }
+
     private void loadListsInListView() {
 
         android.widget.ListView ListViewListsodlists = (android.widget.ListView) findViewById(R.id.Listoflists);
         ListofLists = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 
-
+        for(int i = 0; i < Listen.size(); i++){
+            ListofLists.add(Listen.get(i).name);
+        }
         
         ListViewListsodlists.setAdapter(ListofLists);
         AdapterView.OnItemClickListener mListClickedHandler = new AdapterView.OnItemClickListener() {
@@ -82,15 +90,9 @@ public class ListView extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), SingelListView.class);
                 String nameofselected = parent.getItemAtPosition(position).toString();
 
-
-
-                for(int i = 0; i < Listen.size(); i++){
-                    ListofLists.add(Listen.get(i).name);
-                }
-
                 for(int i = 0; i < Listen.size(); i++){
                     if(Listen.get(i).name == nameofselected){
-                        intent.putExtra("listid", Integer.toString(Listen.get(i).id));
+                        intent.putExtra("list_id", Integer.toString(Listen.get(i).id));
                     }
                 }
 
@@ -114,6 +116,11 @@ public class ListView extends AppCompatActivity {
 
     private void deleteCategory(){
 
+    }
+
+    public void loadList(){
+        Listen = nc.readAllLists(category_id);
+        loadListsInListView();
     }
 
     @Override
