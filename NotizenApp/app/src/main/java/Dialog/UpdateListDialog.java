@@ -1,4 +1,4 @@
-package ch.bbcag.notizenapp;
+package Dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -7,11 +7,13 @@ import android.app.DialogFragment;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 
+import ch.bbcag.notizenapp.R;
+
 /**
  * Created by berpet on 23.05.2017.
  */
 
-public class CreateListDialog extends DialogFragment {
+public class UpdateListDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
@@ -19,14 +21,14 @@ public class CreateListDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
 
-        builder.setMessage("Neue Liste")
+        builder.setMessage("Liste umbenennen")
                 .setView(inflater.inflate(R.layout.dialog_add_list, null))
-                .setPositiveButton("erstellen", new DialogInterface.OnClickListener() {
+                .setPositiveButton("ändern", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // FIRE ZE MISSILES!
                     }
                 })
-                .setNegativeButton("abbruch", new DialogInterface.OnClickListener() {
+                .setNegativeButton("abbrechen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
                     }

@@ -1,4 +1,4 @@
-package ch.bbcag.notizenapp;
+package Dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
  * Created by berpet on 23.05.2017.
  */
 
-public class CreateCategoryDialog extends DialogFragment {
+public class DeleteCategoryDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
@@ -19,14 +19,14 @@ public class CreateCategoryDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
 
-        builder.setMessage("Neue Kategotie")
-                .setView(inflater.inflate(R.layout.dialog_add_category, null))
-                .setPositiveButton("erstellen", new DialogInterface.OnClickListener() {
+        builder.setTitle("Kategorie löschen")
+                .setMessage("Sind sie sicher, dass sie die Kategorie löschen wollen?")
+                .setPositiveButton("löschen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // FIRE ZE MISSILES!
                     }
                 })
-                .setNegativeButton("abbrechen", new DialogInterface.OnClickListener() {
+                .setNegativeButton("abbruch", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
                     }

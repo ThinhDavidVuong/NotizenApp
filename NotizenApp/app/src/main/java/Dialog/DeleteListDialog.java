@@ -1,17 +1,17 @@
-package ch.bbcag.notizenapp;
+package Dialog;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.app.DialogFragment;
-import android.app.AlertDialog;
-import android.view.LayoutInflater;
+        import android.app.Dialog;
+        import android.content.DialogInterface;
+        import android.os.Bundle;
+        import android.app.DialogFragment;
+        import android.app.AlertDialog;
+        import android.view.LayoutInflater;
 
 /**
  * Created by berpet on 23.05.2017.
  */
 
-public class DeleteCategoryDialog extends DialogFragment {
+public class DeleteListDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
@@ -19,8 +19,8 @@ public class DeleteCategoryDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
 
-        builder.setTitle("Kategorie löschen")
-                .setMessage("Sind sie sicher, dass sie die Kategorie löschen wollen?")
+        builder.setTitle("Liste löschen")
+                .setMessage("Sind sie sicher, dass sie die Liste löschen wollen?")
                 .setPositiveButton("löschen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // FIRE ZE MISSILES!
