@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import Model.CategoryModel;
 import Model.ListModel;
@@ -21,13 +20,14 @@ public class NoteController {
     NoteDbHelper mDbHelper;
     SQLiteDatabase db;
 
+    // Starts the DB and enables Foreign Key
     public NoteController(NoteDbHelper mDbHelper) {
         this.mDbHelper = mDbHelper;
         this.db = mDbHelper.getReadableDatabase();
         db.execSQL(NoteContract.ENABLE_FOREIGNKEY);
     }
 
-    //CATEGORY
+    //Category functions
     public void insertCategory(String input) {
         // Gets the data repository in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -111,7 +111,7 @@ public class NoteController {
         db.delete(NoteContract.CategoryEntry.COLUMN_NAME_CATEGORY, selection, selectionArgs);
     }
 
-    //LIST
+    //List functions
     public void insertList(int category_id, String input) {
         // Gets the data repository in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -133,7 +133,7 @@ public class NoteController {
                 NoteContract.ListEntry.COLUMN_NAME_LIST
         };
 
-        // Filter results WHERE "kategorie_id" = 'id'
+        // Filter results WHERE "kategorie_id" = 'id (Kategorie)'
         String selection = NoteContract.ListEntry.COLUMN_NAME_CATEGORY_ID + " = ?";
         String[] selectionArgs = { Integer.toString(category_id) };
 
@@ -160,11 +160,6 @@ public class NoteController {
                     cursor.getColumnIndexOrThrow(NoteContract.ListEntry.COLUMN_NAME_LIST));
 
             allCategory.add(new ListModel(list_id, category_id, list_name));
-
-            // Meldung der durchlaufenden Elemente
-            Log.e("ID Liste", Integer.toString(list_id));
-            Log.e("Kategorie ID", Integer.toString(category_id));
-            Log.e("Name Liste", list_name);
         }
         cursor.close();
         return allCategory;
@@ -197,7 +192,7 @@ public class NoteController {
         db.delete(NoteContract.ListEntry.TABLE_LIST, selection, selectionArgs);
     }
 
-    //TASK
+    //Task functions
     public void insertTask(int list_id, String input) {
         // Gets the data repository in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -221,7 +216,7 @@ public class NoteController {
                 NoteContract.TaskEntry.COLUMN_NAME_CHECKED
         };
 
-        // Filter results WHERE "liste_id" = 'id(Liste)'
+        // Filter results WHERE "liste_id" = 'id (Liste)'
         String selection = NoteContract.TaskEntry.COLUMN_NAME_LIST_ID + " = ?";
         String[] selectionArgs = { Integer.toString(list_id) };
 
@@ -257,9 +252,6 @@ public class NoteController {
             }
 
             allCategory.add(new QuestModel(quest_id, list_id, task_name, state));
-
-            // Meldung der durchlaufenden Elemente
-            Log.e("@@@@", task_name);
         }
         cursor.close();
         return allCategory;
@@ -286,6 +278,10 @@ public class NoteController {
     public void updateTaskState(QuestModel qm) {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
+        /*
+        We use 0 and 1 as true and false.
+        Because MySQLi doesn't know boolean state.
+         */
         int zahl = 0;
         if (qm.isChecked == true) {
             zahl = 1;

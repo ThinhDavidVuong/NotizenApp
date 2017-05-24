@@ -53,10 +53,19 @@ public class NoteContract {
                     "FOREIGN KEY("+ TaskEntry.COLUMN_NAME_LIST_ID+") REFERENCES "+ListEntry.TABLE_LIST+"("+ListEntry._ID+") ON DELETE CASCADE)";
 
 
-    public static final String SQL_DELETE_ENTRIES =
+    // Delete Table "Kategorie"
+    public static final String SQL_DELETE_CATEGORY =
             "DROP TABLE IF EXISTS " + CategoryEntry.TABLE_CATEGORY;
 
+    // Delete Table "Liste"
+    public static final String SQL_DELETE_LIST =
+            "DROP TABLE IF EXISTS " + ListEntry.TABLE_LIST;
 
+    // Delete Table "Aufgabe"
+    public static final String SQL_DELETE_TASK =
+            "DROP TABLE IF EXISTS " + TaskEntry.TABLE_TASK;
+
+    // Enable Foreign Key
     public static final String ENABLE_FOREIGNKEY = "PRAGMA foreign_keys = ON";
 }
 

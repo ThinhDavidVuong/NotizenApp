@@ -43,7 +43,6 @@ public class UpdateQuestDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-
         builder.setMessage("Aufgabe umbennenen")
                 .setView(inflater.inflate(R.layout.dialog_add_list, null))
                 .setPositiveButton("ändern", new DialogInterface.OnClickListener() {
