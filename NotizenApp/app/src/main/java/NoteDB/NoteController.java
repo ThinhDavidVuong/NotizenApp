@@ -188,7 +188,14 @@ public class NoteController {
             int task_checked = cursor.getInt(
                     cursor.getColumnIndexOrThrow(NoteContract.Task.COLUMN_NAME_CHECKED));
 
-            allCategory.add(new QuestModel(quest_id, list_id, task_name, task_checked));
+            boolean state;
+            if (task_checked == 1) {
+                state = true;
+            } else {
+                state = false;
+            }
+
+            allCategory.add(new QuestModel(quest_id, list_id, task_name, state));
 
             // Meldung der durchlaufenden Elemente
             Log.e("@@@@", task_name);

@@ -12,9 +12,9 @@ public class QuestModel {
 
     public String name;
 
-    public int isChecked;
+    public boolean isChecked;
 
-    public QuestModel(int id, int list_id, String name, int isChecked){
+    public QuestModel(int id, int list_id, String name, boolean isChecked){
         this.id = id;
         this.list_id = list_id;
         this.name = name;
