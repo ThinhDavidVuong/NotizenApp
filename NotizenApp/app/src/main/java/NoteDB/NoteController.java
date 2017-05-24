@@ -10,6 +10,7 @@ import java.util.List;
 
 import Model.CategoryModel;
 import Model.ListModel;
+import Model.QuestModel;
 
 /**
  * Created by bvuond on 23.05.2017.
@@ -30,10 +31,8 @@ public class NoteController {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         // Create a new map of values, where column names are the keys
-        // USER GIBT INPUT <-----------------
-        String name = input;
         ContentValues values = new ContentValues();
-        values.put(NoteContract.CategoryEntry.COLUMN_NAME_CATEGORY, name);
+        values.put(NoteContract.CategoryEntry.COLUMN_NAME_CATEGORY, input);
 
         // Insert the new row, returning the primary key value of the new row
         db.insert(NoteContract.CategoryEntry.TABLE_CATEGORY, null, values);
@@ -82,23 +81,19 @@ public class NoteController {
         return allCategory;
     }
 
-    public void insertList(int category_id) {
+    public void insertList(int category_id, String input) {
         // Gets the data repository in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         // Create a new map of values, where column names are the keys
-        // USER GIBT INPUT <-----------------
-        String name = "Hausaufgaben";
         ContentValues values = new ContentValues();
-        values.put(NoteContract.ListEntry.COLUMN_NAME_LIST, name);
-        // FINDE DIE ID VON DER KATEGORIE HERAUS (USER KLCIKT AUF EINE KATEGORIE) <-----------------
+        values.put(NoteContract.ListEntry.COLUMN_NAME_LIST, input);
         values.put(NoteContract.ListEntry.COLUMN_NAME_CATEGORY_ID, category_id);
 
         // Insert the new row, returning the primary key value of the new row
         db.insert(NoteContract.ListEntry.TABLE_LIST, null, values);
     }
 
-    // FINDE DIE ID VON DER KATEGORIE HERAUS (USER KLCIKT AUF EINE KATEGORIE) <-----------------
     public ArrayList<ListModel> readAllLists(int category_id) {
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
@@ -142,14 +137,13 @@ public class NoteController {
         return allCategory;
     }
 
-    public void insertTask(int list_id) {
+    public void insertTask(int list_id, String input) {
         // Gets the data repository in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         // Create a new map of values, where column names are the keys
-        String name = "[300g Tomaten]";
         ContentValues values = new ContentValues();
-        values.put(NoteContract.Task.COLUMN_NAME_TASK, name);
+        values.put(NoteContract.Task.COLUMN_NAME_TASK, input);
         values.put(NoteContract.Task.COLUMN_NAME_LIST_ID, list_id);
         values.put(NoteContract.Task.COLUMN_NAME_CHECKED, 0);
 
@@ -157,21 +151,22 @@ public class NoteController {
         db.insert(NoteContract.ListEntry.TABLE_LIST, null, values);
     }
 
-    public List readAllTasks(int category_id) {
+    public ArrayList<QuestModel> readAllTasks(int list_id) {
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
                 NoteContract.Task._ID,
-                NoteContract.Task.COLUMN_NAME_LIST
+                NoteContract.Task.COLUMN_NAME_TASK,
+                NoteContract.Task.COLUMN_NAME_CHECKED
         };
 
-        // Filter results WHERE "kategorie_id" = '2'
-        String selection = NoteContract.Task.COLUMN_NAME_CATEGORY_ID + " = ?";
-        String[] selectionArgs = { Integer.toString(category_id) };
+        // Filter results WHERE "liste_id" = 'id(Liste)'
+        String selection = NoteContract.Task.COLUMN_NAME_LIST_ID + " = ?";
+        String[] selectionArgs = { Integer.toString(list_id) };
 
         // How you want the results sorted in the resulting Cursor
         String sortOrder =
-                NoteContract.Task.COLUMN_NAME_LIST + " DESC";
+                NoteContract.Task.COLUMN_NAME_TASK + " DESC";
 
         Cursor cursor = db.query(
                 NoteContract.Task.TABLE_TASK,        // The table to query
@@ -184,17 +179,19 @@ public class NoteController {
         );
 
         // For each row, you can read a column's value by calling one of the Cursor get methods.
-        List allCategory = new ArrayList<>();
+        ArrayList<QuestModel> allCategory = new ArrayList<>();
         while(cursor.moveToNext()) {
-            int list_id = cursor.getInt(
+            int quest_id = cursor.getInt(
                     cursor.getColumnIndexOrThrow(NoteContract.Task._ID));
-            String list_name = cursor.getString(
-                    cursor.getColumnIndexOrThrow(NoteContract.Task.COLUMN_NAME_LIST));
+            String task_name = cursor.getString(
+                    cursor.getColumnIndexOrThrow(NoteContract.Task.COLUMN_NAME_TASK));
+            int task_checked = cursor.getInt(
+                    cursor.getColumnIndexOrThrow(NoteContract.Task.COLUMN_NAME_CHECKED));
 
-            allCategory.add(new ListModel(list_id, category_id, list_name));
+            allCategory.add(new QuestModel(quest_id, list_id, task_name, task_checked));
 
             // Meldung der durchlaufenden Elemente
-            Log.e("@@@@", list_name);
+            Log.e("@@@@", task_name);
         }
         cursor.close();
         return allCategory;

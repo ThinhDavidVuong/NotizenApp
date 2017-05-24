@@ -47,7 +47,7 @@ public class NoteContract {
             "CREATE TABLE " + Task.TABLE_TASK + " (" +
                     Task._ID + " INTEGER PRIMARY KEY," +
                     Task.COLUMN_NAME_TASK + " TEXT," +
-                    Task.COLUMN_NAME_CHECKED + " BLOB," +
+                    Task.COLUMN_NAME_CHECKED + " INTEGER," +
                     "FOREIGN KEY("+ Task.COLUMN_NAME_LIST_ID+") REFERENCES "+ListEntry.TABLE_LIST+"("+ListEntry._ID+")";
 
 
