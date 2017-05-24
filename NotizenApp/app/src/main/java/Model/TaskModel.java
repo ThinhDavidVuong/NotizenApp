@@ -1,6 +1,6 @@
 package Model;
 
-public class QuestModel {
+public class TaskModel {
 
     public int id;
 
@@ -10,7 +10,7 @@ public class QuestModel {
 
     public boolean isChecked;
 
-    public QuestModel(int id, int list_id, String name, boolean isChecked){
+    public TaskModel(int id, int list_id, String name, boolean isChecked){
         this.id = id;
         this.list_id = list_id;
         this.name = name;

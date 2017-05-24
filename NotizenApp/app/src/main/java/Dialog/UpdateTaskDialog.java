@@ -7,13 +7,13 @@ import android.app.DialogFragment;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 
-import Model.QuestModel;
+import Model.TaskModel;
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
 import ch.bbcag.notizenapp.R;
 import ch.bbcag.notizenapp.SingelListView;
 
-public class UpdateQuestDialog extends DialogFragment {
+public class UpdateTaskDialog extends DialogFragment {
 
     private NoteDbHelper nh;
     private NoteController nc;
@@ -27,7 +27,7 @@ public class UpdateQuestDialog extends DialogFragment {
     private String taskname;
     private boolean isChecked;
 
-    public UpdateQuestDialog(SingelListView context, Bundle savedInstanceState, int Taskid, int Listid, String Taskname, boolean IsChecked){
+    public UpdateTaskDialog(SingelListView context, Bundle savedInstanceState, int Taskid, int Listid, String Taskname, boolean IsChecked){
         slv = context;
         nh = new NoteDbHelper(context);
         nc = new NoteController(nh);
@@ -48,7 +48,7 @@ public class UpdateQuestDialog extends DialogFragment {
                 .setView(inflater.inflate(R.layout.dialog_add_list, null))
                 .setPositiveButton("ändern", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        nc.updateTask(new QuestModel(taskid, listid, taskname, isChecked));
+                        nc.updateTask(new TaskModel(taskid, listid, taskname, isChecked));
                     }
                 })
                 .setNegativeButton("abbrechen", new DialogInterface.OnClickListener() {

@@ -14,7 +14,7 @@ import NoteDB.NoteDbHelper;
 import ch.bbcag.notizenapp.R;
 import ch.bbcag.notizenapp.SingelListView;
 
-public class CreateQuestDialog extends DialogFragment {
+public class CreateTaskDialog extends DialogFragment {
 
     private NoteDbHelper nh;
     private NoteController nc;
@@ -25,7 +25,7 @@ public class CreateQuestDialog extends DialogFragment {
 
     private int listid;
 
-    public CreateQuestDialog(SingelListView context, Bundle savedInstanceState, int listid){
+    public CreateTaskDialog(SingelListView context, Bundle savedInstanceState, int listid){
         slv = context;
         nh = new NoteDbHelper(context);
         nc = new NoteController(nh);
