@@ -47,7 +47,7 @@ public class CreateQuestDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         TextView tv = (TextView) v.findViewById(R.id.newitemname);
                         if(tv.getText().toString() != ""){
-                            nc.insertList(listid, tv.getText().toString());
+                            nc.insertTask(listid, tv.getText().toString());
                             slv.loadList();
                         }
                     }

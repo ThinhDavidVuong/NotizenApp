@@ -63,6 +63,7 @@ public class SingelListView extends AppCompatActivity {
 
         setImage();
         setCategoryName();
+        loadList();
     }
 
     private  void setImage(){
@@ -76,10 +77,10 @@ public class SingelListView extends AppCompatActivity {
     }
 
     private void loadListsInListView() {
-        android.widget.ListView ListViewListsodlists = (android.widget.ListView) findViewById(R.id.Listoflists);
+        android.widget.ListView ListViewListsodlists = (android.widget.ListView) findViewById(R.id.Listoftasks);
         ListofTasks = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 
-        for (int i = 0; i < Tasks.size(); i++) {
+        for (int i = Tasks.size()-1; i >= 0; i--) {
             ListofTasks.add(Tasks.get(i).name);
         }
 
@@ -87,7 +88,9 @@ public class SingelListView extends AppCompatActivity {
     }
 
     public void loadList() {
-
+        //Tasks = nc.readAllTasks(list_id);
+        Tasks.add(new QuestModel(1, 1, "TESTESS", false));
+        loadListsInListView();
     }
 
     @Override

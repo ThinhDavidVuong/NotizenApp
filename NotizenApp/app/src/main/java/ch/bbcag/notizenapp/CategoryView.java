@@ -68,7 +68,7 @@ public class CategoryView extends AppCompatActivity {
         android.widget.ListView ListViewListsodlists = (android.widget.ListView) findViewById(R.id.Listofcatrogries);
         ListofCategories = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 
-        for(int i = 0; i < Categories.size(); i++){
+        for(int i = Categories.size()-1; i >= 0; i--){
             ListofCategories.add(Categories.get(i).name);
         }
 
@@ -80,7 +80,7 @@ public class CategoryView extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ListView.class);
                 String nameofselected = parent.getItemAtPosition(position).toString();
 
-                for(int i = 0; i < Categories.size(); i++){
+                for(int i = Categories.size()-1; i >= 0; i--){
                     if(Categories.get(i).name == nameofselected){
                         intent.putExtra("category_id", Integer.toString(Categories.get(i).id));
                     }
