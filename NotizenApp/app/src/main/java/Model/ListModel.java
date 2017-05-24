@@ -1,9 +1,5 @@
 package Model;
 
-/**
- * Created by berpet on 23.05.2017.
- */
-
 public class ListModel {
 
     public int id;

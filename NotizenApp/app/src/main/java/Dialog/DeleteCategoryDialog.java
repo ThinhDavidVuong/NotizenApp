@@ -7,10 +7,6 @@ import android.app.DialogFragment;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 
-/**
- * Created by berpet on 23.05.2017.
- */
-
 public class DeleteCategoryDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

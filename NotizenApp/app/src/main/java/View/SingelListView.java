@@ -7,12 +7,26 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
-import Dialog.CreateQuestDialog;
+import java.util.ArrayList;
+
+import Dialog.*;
+import Model.*;
+import NoteDB.*;
 import ch.bbcag.notizenapp.R;
 
 public class SingelListView extends AppCompatActivity {
+
+    private NoteDbHelper nh;
+    private NoteController nc;
+
+    private ArrayAdapter ListofTasks;
+
+    private int category_id;
+    private String category_name;
+    private ArrayList<ListModel> Listen = new ArrayList<ListModel>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +46,23 @@ public class SingelListView extends AppCompatActivity {
                 dlg.show(fm, tag);
             }
         });
+
+        nh = new NoteDbHelper(this);
+        nc = new NoteController(nh);
+
+
         setImage();
     }
 
     private  void setImage(){
-        ImageView img = (ImageView) findViewById(R.id.addQuest);
+        ImageView img = (ImageView) findViewById(R.id.addTask);
         img.setImageResource(R.drawable.ic_add_black_36dp);
     }
+
+    @Override
+    protected void onDestroy() {
+        nh.close();
+        super.onDestroy();
+    }
+
 }

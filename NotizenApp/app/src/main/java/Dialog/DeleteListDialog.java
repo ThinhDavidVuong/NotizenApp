@@ -1,15 +1,11 @@
 package Dialog;
 
-        import android.app.Dialog;
-        import android.content.DialogInterface;
-        import android.os.Bundle;
-        import android.app.DialogFragment;
-        import android.app.AlertDialog;
-        import android.view.LayoutInflater;
-
-/**
- * Created by berpet on 23.05.2017.
- */
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.app.DialogFragment;
+import android.app.AlertDialog;
+import android.view.LayoutInflater;
 
 public class DeleteListDialog extends DialogFragment {
     @Override

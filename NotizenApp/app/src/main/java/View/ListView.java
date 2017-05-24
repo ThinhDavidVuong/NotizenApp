@@ -16,11 +16,17 @@ import java.util.ArrayList;
 
 import Dialog.CreateListDialog;
 import Model.ListModel;
+import NoteDB.NoteController;
+import NoteDB.NoteDbHelper;
 import ch.bbcag.notizenapp.R;
 
 public class ListView extends AppCompatActivity {
 
-    ArrayAdapter ListofLists;
+    private NoteDbHelper nh;
+    private NoteController nc;
+
+    private ArrayAdapter ListofLists;
+
     private int category_id;
     private String category_name;
     private ArrayList<ListModel> Listen = new ArrayList<ListModel>();
@@ -44,6 +50,9 @@ public class ListView extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
+
+        nh = new NoteDbHelper(this);
+        nc = new NoteController(nh);
 
         category_id = Integer.parseInt(intent.getStringExtra("category_id"));
         category_name = intent.getStringExtra("name");
@@ -106,6 +115,12 @@ public class ListView extends AppCompatActivity {
 
     private void deleteCategory(){
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        nh.close();
+        super.onDestroy();
     }
 
 }

@@ -22,10 +22,13 @@ import ch.bbcag.notizenapp.R;
 
 public class CategoryView extends AppCompatActivity {
 
-    ArrayAdapter ListofCategories;
-    private ArrayList<CategoryModel> Categories = new ArrayList<CategoryModel>();
     private NoteDbHelper nh;
     private NoteController nc;
+
+    ArrayAdapter ListofCategories;
+
+    private ArrayList<CategoryModel> Categories = new ArrayList<CategoryModel>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

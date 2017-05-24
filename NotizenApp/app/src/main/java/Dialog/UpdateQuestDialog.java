@@ -9,10 +9,6 @@ import android.view.LayoutInflater;
 
 import ch.bbcag.notizenapp.R;
 
-/**
- * Created by berpet on 23.05.2017.
- */
-
 public class UpdateQuestDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
