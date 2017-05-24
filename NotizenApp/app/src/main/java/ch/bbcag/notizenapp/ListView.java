@@ -78,7 +78,7 @@ public class ListView extends AppCompatActivity {
         android.widget.ListView ListViewListsodlists = (android.widget.ListView) findViewById(R.id.Listoflists);
         ListofLists = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 
-        for(int i = 0; i < Listen.size(); i++){
+        for(int i = Listen.size()-1; i >= 0; i--){
             ListofLists.add(Listen.get(i).name);
         }
         
@@ -90,7 +90,7 @@ public class ListView extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), SingelListView.class);
                 String nameofselected = parent.getItemAtPosition(position).toString();
 
-                for(int i = 0; i < Listen.size(); i++){
+                for(int i = Listen.size()-1; i >= 0; i--){
                     if(Listen.get(i).name == nameofselected){
                         intent.putExtra("list_id", Integer.toString(Listen.get(i).id));
                     }

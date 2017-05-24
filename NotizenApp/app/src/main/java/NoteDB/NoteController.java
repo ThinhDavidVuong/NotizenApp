@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import Model.CategoryModel;
 import Model.ListModel;
-import Model.QuestModel;
+import Model.TaskModel;
 
 /**
  * Created by bvuond on 23.05.2017.
@@ -207,7 +207,7 @@ public class NoteController {
         db.insert(NoteContract.ListEntry.TABLE_LIST, null, values);
     }
 
-    public ArrayList<QuestModel> readAllTasks(int list_id) {
+    public ArrayList<TaskModel> readAllTasks(int list_id) {
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
@@ -235,7 +235,7 @@ public class NoteController {
         );
 
         // For each row, you can read a column's value by calling one of the Cursor get methods.
-        ArrayList<QuestModel> allCategory = new ArrayList<>();
+        ArrayList<TaskModel> allCategory = new ArrayList<>();
         while(cursor.moveToNext()) {
             int quest_id = cursor.getInt(
                     cursor.getColumnIndexOrThrow(NoteContract.TaskEntry._ID));
@@ -251,13 +251,20 @@ public class NoteController {
                 state = false;
             }
 
+<<<<<<< HEAD
             allCategory.add(new QuestModel(quest_id, list_id, task_name, state));
+=======
+            allCategory.add(new TaskModel(quest_id, list_id, task_name, state));
+
+            // Meldung der durchlaufenden Elemente
+            Log.e("@@@@", task_name);
+>>>>>>> 54d02a15f0e72f949cca7f6435fedf5de8376c63
         }
         cursor.close();
         return allCategory;
     }
 
-    public void updateTask(QuestModel qm) {
+    public void updateTask(TaskModel qm) {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         // New value for one column
@@ -275,7 +282,7 @@ public class NoteController {
                 selectionArgs);
     }
 
-    public void updateTaskState(QuestModel qm) {
+    public void updateTaskState(TaskModel qm) {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         /*
@@ -304,7 +311,7 @@ public class NoteController {
                 selectionArgs);
     }
 
-    public void deleteTask(QuestModel qm) {
+    public void deleteTask(TaskModel qm) {
         // Define 'where' part of query.
         String selection = NoteContract.TaskEntry._ID + " LIKE ?";
         // Specify arguments in placeholder order.

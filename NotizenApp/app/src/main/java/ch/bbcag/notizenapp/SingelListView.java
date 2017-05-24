@@ -4,33 +4,30 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import Adapter.TaskAdapter;
 import Dialog.*;
 import Model.*;
 import NoteDB.*;
-import ch.bbcag.notizenapp.R;
 
 public class SingelListView extends AppCompatActivity {
 
     private NoteDbHelper nh;
     private NoteController nc;
 
-    private ArrayAdapter ListofTasks;
+    private TaskAdapter ListofTasks;
 
     private int list_id;
     private String list_name;
-    private ArrayList<QuestModel> Tasks = new ArrayList<QuestModel>();
+    private ArrayList<TaskModel> Tasks = new ArrayList<TaskModel>();
 
     private SingelListView slv = this;
 
@@ -50,7 +47,7 @@ public class SingelListView extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                CreateQuestDialog dlg = new CreateQuestDialog(slv, Bundle.EMPTY, 1);
+                CreateTaskDialog dlg = new CreateTaskDialog(slv, Bundle.EMPTY, 1);
                 String tag = "";
                 FragmentManager fm = getFragmentManager();
                 dlg.show(fm, tag);
@@ -63,6 +60,7 @@ public class SingelListView extends AppCompatActivity {
 
         setImage();
         setCategoryName();
+        loadList();
     }
 
     private  void setImage(){
@@ -76,17 +74,29 @@ public class SingelListView extends AppCompatActivity {
     }
 
     private void loadListsInListView() {
-        android.widget.ListView ListViewListsodlists = (android.widget.ListView) findViewById(R.id.Listoflists);
-        ListofTasks = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        android.widget.ListView ListViewListsodlists = (android.widget.ListView) findViewById(R.id.Listoftasks);
+        ArrayList<TaskModel> TaskModels = new ArrayList<TaskModel>();
 
-        for (int i = 0; i < Tasks.size(); i++) {
-            ListofTasks.add(Tasks.get(i).name);
+        for (int i = Tasks.size()-1; i >= 0; i--) {
+            TaskModels.add(Tasks.get(i));
         }
+
+        ListofTasks = new TaskAdapter(this, TaskModels);
 
         ListViewListsodlists.setAdapter(ListofTasks);
     }
 
     public void loadList() {
+        Tasks = nc.readAllTasks(list_id);
+        Tasks.add(new TaskModel(1, 1, "TESTESS", false));
+        loadListsInListView();
+    }
+
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        nc.updateTask(new TaskModel(1,1,"TEST", checked));
 
     }
 
