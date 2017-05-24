@@ -24,8 +24,10 @@ public class NoteController {
     public NoteController(NoteDbHelper mDbHelper) {
         this.mDbHelper = mDbHelper;
         this.db = mDbHelper.getReadableDatabase();
+        db.execSQL(NoteContract.ENABLE_FOREIGNKEY);
     }
 
+    //CATEGORY
     public void insertCategory(String input) {
         // Gets the data repository in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -81,6 +83,34 @@ public class NoteController {
         return allCategory;
     }
 
+    public void updateCategory(CategoryModel cm) {
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        // New value for one column
+        ContentValues values = new ContentValues();
+        values.put(NoteContract.CategoryEntry.COLUMN_NAME_CATEGORY, cm.name);
+
+        // Which row to update, based on the title
+        String selection = NoteContract.CategoryEntry._ID + " LIKE ?";
+        String[] selectionArgs = { Integer.toString(cm.id) };
+
+        db.update(
+                NoteContract.CategoryEntry.TABLE_CATEGORY,
+                values,
+                selection,
+                selectionArgs);
+    }
+
+    public void deleteCategory(CategoryModel cm) {
+        // Define 'where' part of query.
+        String selection = NoteContract.CategoryEntry._ID + " LIKE ?";
+        // Specify arguments in placeholder order.
+        String[] selectionArgs = { Integer.toString(cm.id) };
+        // Issue SQL statement.
+        db.delete(NoteContract.CategoryEntry.COLUMN_NAME_CATEGORY, selection, selectionArgs);
+    }
+
+    //LIST
     public void insertList(int category_id, String input) {
         // Gets the data repository in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -137,15 +167,43 @@ public class NoteController {
         return allCategory;
     }
 
+    public void updateList(ListModel lm) {
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        // New value for one column
+        ContentValues values = new ContentValues();
+        values.put(NoteContract.ListEntry.COLUMN_NAME_LIST, lm.name);
+
+        // Which row to update, based on the title
+        String selection = NoteContract.ListEntry._ID + " LIKE ?";
+        String[] selectionArgs = { Integer.toString(lm.id) };
+
+        db.update(
+                NoteContract.ListEntry.TABLE_LIST,
+                values,
+                selection,
+                selectionArgs);
+    }
+
+    public void deleteList(CategoryModel cm) {
+        // Define 'where' part of query.
+        String selection = NoteContract.ListEntry._ID + " LIKE ?";
+        // Specify arguments in placeholder order.
+        String[] selectionArgs = { Integer.toString(cm.id) };
+        // Issue SQL statement.
+        db.delete(NoteContract.ListEntry.COLUMN_NAME_LIST, selection, selectionArgs);
+    }
+
+    //TASK
     public void insertTask(int list_id, String input) {
         // Gets the data repository in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
-        values.put(NoteContract.Task.COLUMN_NAME_TASK, input);
-        values.put(NoteContract.Task.COLUMN_NAME_LIST_ID, list_id);
-        values.put(NoteContract.Task.COLUMN_NAME_CHECKED, 0);
+        values.put(NoteContract.TaskEntry.COLUMN_NAME_TASK, input);
+        values.put(NoteContract.TaskEntry.COLUMN_NAME_LIST_ID, list_id);
+        values.put(NoteContract.TaskEntry.COLUMN_NAME_CHECKED, 0);
 
         // Insert the new row, returning the primary key value of the new row
         db.insert(NoteContract.ListEntry.TABLE_LIST, null, values);
@@ -155,21 +213,21 @@ public class NoteController {
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
-                NoteContract.Task._ID,
-                NoteContract.Task.COLUMN_NAME_TASK,
-                NoteContract.Task.COLUMN_NAME_CHECKED
+                NoteContract.TaskEntry._ID,
+                NoteContract.TaskEntry.COLUMN_NAME_TASK,
+                NoteContract.TaskEntry.COLUMN_NAME_CHECKED
         };
 
         // Filter results WHERE "liste_id" = 'id(Liste)'
-        String selection = NoteContract.Task.COLUMN_NAME_LIST_ID + " = ?";
+        String selection = NoteContract.TaskEntry.COLUMN_NAME_LIST_ID + " = ?";
         String[] selectionArgs = { Integer.toString(list_id) };
 
         // How you want the results sorted in the resulting Cursor
         String sortOrder =
-                NoteContract.Task.COLUMN_NAME_TASK + " DESC";
+                NoteContract.TaskEntry.COLUMN_NAME_TASK + " DESC";
 
         Cursor cursor = db.query(
-                NoteContract.Task.TABLE_TASK,        // The table to query
+                NoteContract.TaskEntry.TABLE_TASK,        // The table to query
                 projection,                               // The columns to return
                 selection,                                // The columns for the WHERE clause
                 selectionArgs,                            // The values for the WHERE clause
@@ -182,11 +240,11 @@ public class NoteController {
         ArrayList<QuestModel> allCategory = new ArrayList<>();
         while(cursor.moveToNext()) {
             int quest_id = cursor.getInt(
-                    cursor.getColumnIndexOrThrow(NoteContract.Task._ID));
+                    cursor.getColumnIndexOrThrow(NoteContract.TaskEntry._ID));
             String task_name = cursor.getString(
-                    cursor.getColumnIndexOrThrow(NoteContract.Task.COLUMN_NAME_TASK));
+                    cursor.getColumnIndexOrThrow(NoteContract.TaskEntry.COLUMN_NAME_TASK));
             int task_checked = cursor.getInt(
-                    cursor.getColumnIndexOrThrow(NoteContract.Task.COLUMN_NAME_CHECKED));
+                    cursor.getColumnIndexOrThrow(NoteContract.TaskEntry.COLUMN_NAME_CHECKED));
 
             boolean state;
             if (task_checked == 1) {
@@ -204,34 +262,55 @@ public class NoteController {
         return allCategory;
     }
 
-
-    // =============================================================================================
-    // Wird noch nicht gebraucht.
-    public void deleteDB() {
-        // Define 'where' part of query.
-        String selection = NoteContract.CategoryEntry.COLUMN_NAME_CATEGORY + " LIKE ?";
-        // Specify arguments in placeholder order.
-        String[] selectionArgs = { "Meine Notizen" };
-        // Issue SQL statement.
-        db.delete(NoteContract.CategoryEntry.COLUMN_NAME_CATEGORY, selection, selectionArgs);
-    }
-
-    public void updateDB() {
+    public void updateTask(QuestModel qm) {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         // New value for one column
-        String name = "Kochen";
         ContentValues values = new ContentValues();
-        values.put(NoteContract.CategoryEntry.COLUMN_NAME_CATEGORY, name);
+        values.put(NoteContract.TaskEntry.COLUMN_NAME_TASK, qm.name);
 
         // Which row to update, based on the title
-        String selection = NoteContract.CategoryEntry.COLUMN_NAME_CATEGORY + " LIKE ?";
-        String[] selectionArgs = { "Meine Notizen" };
+        String selection = NoteContract.TaskEntry._ID + " LIKE ?";
+        String[] selectionArgs = { Integer.toString(qm.id) };
 
-        int count = db.update(
-                NoteContract.CategoryEntry.COLUMN_NAME_CATEGORY,
+        db.update(
+                NoteContract.TaskEntry.TABLE_TASK,
                 values,
                 selection,
                 selectionArgs);
+    }
+
+    public void updateTaskState(QuestModel qm) {
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        int zahl = 0;
+        if (qm.isChecked == true) {
+            zahl = 1;
+        } else {
+            zahl = 0;
+        }
+
+        // New value for one column
+        ContentValues values = new ContentValues();
+        values.put(NoteContract.TaskEntry.COLUMN_NAME_CHECKED, zahl);
+
+        // Which row to update, based on the title
+        String selection = NoteContract.TaskEntry._ID + " LIKE ?";
+        String[] selectionArgs = { Integer.toString(qm.id) };
+
+        db.update(
+                NoteContract.TaskEntry.TABLE_TASK,
+                values,
+                selection,
+                selectionArgs);
+    }
+
+    public void deleteTask(QuestModel qm) {
+        // Define 'where' part of query.
+        String selection = NoteContract.TaskEntry._ID + " LIKE ?";
+        // Specify arguments in placeholder order.
+        String[] selectionArgs = { Integer.toString(qm.id) };
+        // Issue SQL statement.
+        db.delete(NoteContract.TaskEntry.COLUMN_NAME_TASK, selection, selectionArgs);
     }
 }

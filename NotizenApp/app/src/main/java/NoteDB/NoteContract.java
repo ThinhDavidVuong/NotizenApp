@@ -33,10 +33,10 @@ public class NoteContract {
             "CREATE TABLE " + ListEntry.TABLE_LIST + " (" +
                     ListEntry._ID + " INTEGER PRIMARY KEY," +
                     ListEntry.COLUMN_NAME_LIST + " TEXT," +
-                    "FOREIGN KEY("+ ListEntry.COLUMN_NAME_CATEGORY_ID+") REFERENCES "+CategoryEntry.TABLE_CATEGORY+"("+CategoryEntry._ID+")";
+                    "FOREIGN KEY("+ ListEntry.COLUMN_NAME_CATEGORY_ID+") REFERENCES "+CategoryEntry.TABLE_CATEGORY+"("+CategoryEntry._ID+") ON DELETE CASCADE";
 
     /* Inner class that defines the table "Aufgabe" */
-    public static class Task implements BaseColumns {
+    public static class TaskEntry implements BaseColumns {
         public static final String TABLE_TASK = "Aufgabe";
         public static final String COLUMN_NAME_TASK = "aufgabe_name";
         public static final String COLUMN_NAME_CHECKED = "isChecked";
@@ -44,15 +44,18 @@ public class NoteContract {
     }
 
     public static final String SQL_CREATE_TASK =
-            "CREATE TABLE " + Task.TABLE_TASK + " (" +
-                    Task._ID + " INTEGER PRIMARY KEY," +
-                    Task.COLUMN_NAME_TASK + " TEXT," +
-                    Task.COLUMN_NAME_CHECKED + " INTEGER," +
-                    "FOREIGN KEY("+ Task.COLUMN_NAME_LIST_ID+") REFERENCES "+ListEntry.TABLE_LIST+"("+ListEntry._ID+")";
+            "CREATE TABLE " + TaskEntry.TABLE_TASK + " (" +
+                    TaskEntry._ID + " INTEGER PRIMARY KEY," +
+                    TaskEntry.COLUMN_NAME_TASK + " TEXT," +
+                    TaskEntry.COLUMN_NAME_CHECKED + " INTEGER," +
+                    "FOREIGN KEY("+ TaskEntry.COLUMN_NAME_LIST_ID+") REFERENCES "+ListEntry.TABLE_LIST+"("+ListEntry._ID+") ON DELETE CASCADE";
 
 
     public static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + CategoryEntry.TABLE_CATEGORY;
+
+
+    public static final String ENABLE_FOREIGNKEY = "PRAGMA foreign_keys = ON";
 }
 
 

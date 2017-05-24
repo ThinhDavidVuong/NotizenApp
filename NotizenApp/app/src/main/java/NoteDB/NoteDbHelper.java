@@ -20,8 +20,8 @@ public class NoteDbHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(NoteContract.SQL_CREATE_CATEGORY);
-//        db.execSQL(NoteContract.SQL_CREATE_CATEGORY);
-//        db.execSQL(NoteContract.SQL_CREATE_CATEGORY);
+        db.execSQL(NoteContract.SQL_CREATE_LIST);
+        db.execSQL(NoteContract.SQL_CREATE_TASK);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
