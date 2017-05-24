@@ -48,7 +48,7 @@ public class NoteController {
                 NoteContract.CategoryEntry.COLUMN_NAME_CATEGORY
         };
 
-        // Filter results WHERE "Kategorie" = "meine_notizen"
+        // Filter results SELECT * FROM ...
         String selection = "";
         String[] selectionArgs = { };
 
@@ -77,6 +77,7 @@ public class NoteController {
             allCategory.add(new CategoryModel(category_id, category_name));
 
             // Meldung der durchlaufenden Elemente
+            Log.e("@@@@", Integer.toString(category_id));
             Log.e("@@@@", category_name);
         }
         cursor.close();
@@ -132,7 +133,7 @@ public class NoteController {
                 NoteContract.ListEntry.COLUMN_NAME_LIST
         };
 
-        // Filter results WHERE "kategorie_id" = '2'
+        // Filter results WHERE "kategorie_id" = 'id'
         String selection = NoteContract.ListEntry.COLUMN_NAME_CATEGORY_ID + " = ?";
         String[] selectionArgs = { Integer.toString(category_id) };
 
@@ -161,7 +162,9 @@ public class NoteController {
             allCategory.add(new ListModel(list_id, category_id, list_name));
 
             // Meldung der durchlaufenden Elemente
-            Log.e("@@@@", list_name);
+            Log.e("ID Liste", Integer.toString(list_id));
+            Log.e("Kategorie ID", Integer.toString(category_id));
+            Log.e("Name Liste", list_name);
         }
         cursor.close();
         return allCategory;
@@ -185,13 +188,13 @@ public class NoteController {
                 selectionArgs);
     }
 
-    public void deleteList(CategoryModel cm) {
+    public void deleteList(ListModel lm) {
         // Define 'where' part of query.
         String selection = NoteContract.ListEntry._ID + " LIKE ?";
         // Specify arguments in placeholder order.
-        String[] selectionArgs = { Integer.toString(cm.id) };
+        String[] selectionArgs = { Integer.toString(lm.id) };
         // Issue SQL statement.
-        db.delete(NoteContract.ListEntry.COLUMN_NAME_LIST, selection, selectionArgs);
+        db.delete(NoteContract.ListEntry.TABLE_LIST, selection, selectionArgs);
     }
 
     //TASK

@@ -33,7 +33,8 @@ public class NoteContract {
             "CREATE TABLE " + ListEntry.TABLE_LIST + " (" +
                     ListEntry._ID + " INTEGER PRIMARY KEY," +
                     ListEntry.COLUMN_NAME_LIST + " TEXT," +
-                    "FOREIGN KEY("+ ListEntry.COLUMN_NAME_CATEGORY_ID+") REFERENCES "+CategoryEntry.TABLE_CATEGORY+"("+CategoryEntry._ID+") ON DELETE CASCADE";
+                    ListEntry.COLUMN_NAME_CATEGORY_ID + " INTEGER," +
+                    "FOREIGN KEY("+ ListEntry.COLUMN_NAME_CATEGORY_ID+") REFERENCES "+CategoryEntry.TABLE_CATEGORY+"("+CategoryEntry._ID+") ON DELETE CASCADE)";
 
     /* Inner class that defines the table "Aufgabe" */
     public static class TaskEntry implements BaseColumns {
@@ -48,7 +49,8 @@ public class NoteContract {
                     TaskEntry._ID + " INTEGER PRIMARY KEY," +
                     TaskEntry.COLUMN_NAME_TASK + " TEXT," +
                     TaskEntry.COLUMN_NAME_CHECKED + " INTEGER," +
-                    "FOREIGN KEY("+ TaskEntry.COLUMN_NAME_LIST_ID+") REFERENCES "+ListEntry.TABLE_LIST+"("+ListEntry._ID+") ON DELETE CASCADE";
+                    TaskEntry.COLUMN_NAME_LIST_ID + " INTEGER," +
+                    "FOREIGN KEY("+ TaskEntry.COLUMN_NAME_LIST_ID+") REFERENCES "+ListEntry.TABLE_LIST+"("+ListEntry._ID+") ON DELETE CASCADE)";
 
 
     public static final String SQL_DELETE_ENTRIES =
