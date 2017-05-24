@@ -1,27 +1,43 @@
 package Dialog;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.DialogFragment;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.widget.TextView;
 
+import NoteDB.*;
 import ch.bbcag.notizenapp.R;
 
 public class CreateCategoryDialog extends DialogFragment {
+
+    private NoteDbHelper nh;
+    private NoteController nc;
+
+    private Bundle Test;
+
+    public CreateCategoryDialog(Context context, Bundle savedInstanceState){
+        nh = new NoteDbHelper(context);
+        nc = new NoteController(nh);
+        this.Test = savedInstanceState;
+    }
+
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(Bundle Test) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-
 
         builder.setMessage("Neue Kategotie")
                 .setView(inflater.inflate(R.layout.dialog_add_category, null))
                 .setPositiveButton("erstellen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // FIRE ZE MISSILES!
+                        //TextView img = (TextView) findViewById(R.id.addCategory);
+                        //img.setImageResource(R.drawable.ic_add_black_36dp);
+                        nc.insertCategory("");
                     }
                 })
                 .setNegativeButton("abbrechen", new DialogInterface.OnClickListener() {

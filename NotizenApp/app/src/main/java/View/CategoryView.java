@@ -29,6 +29,8 @@ public class CategoryView extends AppCompatActivity {
 
     private ArrayList<CategoryModel> Categories = new ArrayList<CategoryModel>();
 
+    private CategoryView cv = this;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,22 +39,21 @@ public class CategoryView extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        nh = new NoteDbHelper(this);
+        nc = new NoteController(nh);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addCategory);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                CreateCategoryDialog dlg = new CreateCategoryDialog();
+                CreateCategoryDialog dlg = new CreateCategoryDialog(cv, Bundle.EMPTY);
                 String tag = "";
                 FragmentManager fm = getFragmentManager();
                 dlg.show(fm, tag);
 
-
             }
         });
-
-        nh = new NoteDbHelper(this);
-        nc = new NoteController(nh);
 
         Categories = nc.readAllCategories();
         setImage();

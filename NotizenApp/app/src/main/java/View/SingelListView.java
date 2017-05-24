@@ -35,7 +35,7 @@ public class SingelListView extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addQuest);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addTask);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
