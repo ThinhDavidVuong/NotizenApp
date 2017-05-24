@@ -7,6 +7,7 @@ import android.app.DialogFragment;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 
+import Model.ListModel;
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
 import ch.bbcag.notizenapp.ListView;
@@ -20,10 +21,17 @@ public class UpdateListDialog extends DialogFragment {
 
     private Bundle Test;
 
-    public UpdateListDialog(ListView context, Bundle savedInstanceState){
+    private int listid;
+    private  int categoryid;
+    private String listname;
+
+    public UpdateListDialog(ListView context, Bundle savedInstanceState, int Listid, int categoryid, String listname){
         lv = context;
         nh = new NoteDbHelper(context);
         nc = new NoteController(nh);
+        this.listid = Listid;
+        this.categoryid = categoryid;
+        this.listname = listname;
         this.Test = savedInstanceState;
     }
 
@@ -38,7 +46,7 @@ public class UpdateListDialog extends DialogFragment {
                 .setView(inflater.inflate(R.layout.dialog_add_list, null))
                 .setPositiveButton("ändern", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // FIRE ZE MISSILES!
+                        nc.updateList(new ListModel(listid, categoryid, listname));
                     }
                 })
                 .setNegativeButton("abbrechen", new DialogInterface.OnClickListener() {

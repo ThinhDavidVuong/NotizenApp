@@ -7,6 +7,7 @@ import android.app.DialogFragment;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 
+import Model.CategoryModel;
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
 import ch.bbcag.notizenapp.CategoryView;
@@ -20,10 +21,15 @@ public class DeleteCategoryDialog extends DialogFragment {
 
     private Bundle Test;
 
-    public DeleteCategoryDialog(CategoryView context, Bundle savedInstanceState){
+    private int categoryid;
+    private String categoryname;
+
+    public DeleteCategoryDialog(CategoryView context, Bundle savedInstanceState, int categoryid, String categoryname){
         cv = context;
         nh = new NoteDbHelper(context);
         nc = new NoteController(nh);
+        this.categoryid = categoryid;
+        this.categoryname = categoryname;
         this.Test = savedInstanceState;
     }
     @Override
@@ -37,7 +43,7 @@ public class DeleteCategoryDialog extends DialogFragment {
                 .setMessage("Sind sie sicher, dass sie die Kategorie löschen wollen?")
                 .setPositiveButton("löschen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
+                    nc.deleteCategory(new CategoryModel(categoryid, categoryname));
                     }
                 })
                 .setNegativeButton("abbruch", new DialogInterface.OnClickListener() {

@@ -63,8 +63,7 @@ public class CreateListDialog extends DialogFragment {
 
     @Override
     public void onDismiss(DialogInterface dialog){
-            nh.close();
-            super.onDismiss(dialog);
-        }
+        nh.close();
+        super.onDismiss(dialog);
     }
 }

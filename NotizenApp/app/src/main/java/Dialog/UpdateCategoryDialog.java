@@ -7,6 +7,7 @@ import android.app.DialogFragment;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 
+import Model.CategoryModel;
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
 import ch.bbcag.notizenapp.CategoryView;
@@ -20,10 +21,15 @@ public class UpdateCategoryDialog extends DialogFragment {
 
     private Bundle Test;
 
-    public UpdateCategoryDialog(CategoryView context, Bundle savedInstanceState){
+    private int categoryid;
+    private String categoryname;
+
+    public UpdateCategoryDialog(CategoryView context, Bundle savedInstanceState, int categoryid, String categoryname){
         cv = context;
         nh = new NoteDbHelper(context);
         nc = new NoteController(nh);
+        this.categoryid = categoryid;
+        this.categoryname = categoryname;
         this.Test = savedInstanceState;
     }
 
@@ -38,7 +44,7 @@ public class UpdateCategoryDialog extends DialogFragment {
                 .setView(inflater.inflate(R.layout.dialog_add_category, null))
                 .setPositiveButton("ändern", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
+                    nc.updateCategory(new CategoryModel(categoryid, categoryname));
                     }
                 })
                 .setNegativeButton("abbrechen", new DialogInterface.OnClickListener() {

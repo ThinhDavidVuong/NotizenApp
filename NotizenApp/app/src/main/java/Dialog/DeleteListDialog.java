@@ -7,6 +7,7 @@ import android.app.DialogFragment;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 
+import Model.ListModel;
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
 import ch.bbcag.notizenapp.ListView;
@@ -21,12 +22,16 @@ public class DeleteListDialog extends DialogFragment {
     private Bundle Test;
 
     private int listid;
+    private  int categoryid;
+    private String listname;
 
-    public DeleteListDialog(ListView context, Bundle savedInstanceState, int Listid){
+    public DeleteListDialog(ListView context, Bundle savedInstanceState, int Listid, int categoryid, String listname){
         lv = context;
         nh = new NoteDbHelper(context);
         nc = new NoteController(nh);
         this.listid = Listid;
+        this.categoryid = categoryid;
+        this.listname = listname;
         this.Test = savedInstanceState;
     }
     @Override
@@ -40,7 +45,7 @@ public class DeleteListDialog extends DialogFragment {
                 .setMessage("Sind sie sicher, dass sie die Liste löschen wollen?")
                 .setPositiveButton("löschen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // FIRE ZE MISSILES!
+                        nc.deleteList(new ListModel(listid, categoryid, listname));
                     }
                 })
                 .setNegativeButton("abbruch", new DialogInterface.OnClickListener() {
