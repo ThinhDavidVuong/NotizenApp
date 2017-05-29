@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,7 +17,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import Dialog.CreateCategoryDialog;
 import Dialog.CreateListDialog;
+import Dialog.UpdateCategoryDialog;
+import Model.CategoryModel;
 import Model.ListModel;
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
@@ -37,7 +42,7 @@ public class ListView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.list_toolbar);
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
@@ -106,27 +111,59 @@ public class ListView extends AppCompatActivity {
 
     }
 
-    private void addNewList(){
-
-    }
-
-    private void editcategory(){
-
-    }
-
-    private void deleteCategory(){
-
-    }
-
     public void loadList(){
         Listen = nc.readAllLists(category_id);
         loadListsInListView();
+    }
+
+    public void updateCategoryname(){
+        ArrayList<CategoryModel> Categories = nc.readAllCategories();
+        for(int i = 0; i < Categories.size(); i++){
+            if(Categories.get(i).id == category_id){
+                category_name = Categories.get(i).name;
+            }
+        }
+        setCategoryName();
     }
 
     @Override
     protected void onDestroy() {
         nh.close();
         super.onDestroy();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                // User chose the "Settings" item, show the app settings UI...
+                return true;
+
+            case R.id.action_edit:
+                UpdateCategoryDialog dlg = new UpdateCategoryDialog(lv, Bundle.EMPTY, category_id, category_name);
+                String tag = "";
+                FragmentManager fm = getFragmentManager();
+                dlg.show(fm, tag);
+                return true;
+
+            case R.id.action_delete:
+                // User chose the "Favorite" action, mark the current item
+                // as a favorite...
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
 }

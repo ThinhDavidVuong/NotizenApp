@@ -38,7 +38,7 @@ public class CategoryView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_view);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.category_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("NotizApp");
 
@@ -121,8 +121,10 @@ public class CategoryView extends AppCompatActivity {
                 return true;
 
             case R.id.action_edit:
-                // User chose the "Favorite" action, mark the current item
-                // as a favorite...
+                CreateCategoryDialog dlg = new CreateCategoryDialog(cv, Bundle.EMPTY);
+                String tag = "";
+                FragmentManager fm = getFragmentManager();
+                dlg.show(fm, tag);
                 return true;
 
             case R.id.action_delete:

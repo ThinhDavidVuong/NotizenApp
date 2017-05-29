@@ -35,7 +35,7 @@ public class SingelListView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_singel_list_view);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.singellist_toolbar);
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
@@ -88,7 +88,7 @@ public class SingelListView extends AppCompatActivity {
 
     public void loadList() {
         Tasks = nc.readAllTasks(list_id);
-        Tasks.add(new TaskModel(1, 1, "TESTESS", false));
+        //Tasks.add(new TaskModel(1, 1, "TESTESS", false));
         loadListsInListView();
     }
 
