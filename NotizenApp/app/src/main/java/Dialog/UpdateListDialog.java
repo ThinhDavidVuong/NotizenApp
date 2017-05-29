@@ -12,12 +12,13 @@ import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
 import ch.bbcag.notizenapp.ListView;
 import ch.bbcag.notizenapp.R;
+import ch.bbcag.notizenapp.SingelListView;
 
 public class UpdateListDialog extends DialogFragment {
     private NoteDbHelper nh;
     private NoteController nc;
 
-    private ListView lv;
+    private SingelListView slv;
 
     private Bundle Test;
 
@@ -25,8 +26,8 @@ public class UpdateListDialog extends DialogFragment {
     private  int categoryid;
     private String listname;
 
-    public UpdateListDialog(ListView context, Bundle savedInstanceState, int Listid, int categoryid, String listname){
-        lv = context;
+    public UpdateListDialog(SingelListView context, Bundle savedInstanceState, int Listid, int categoryid, String listname){
+        slv = context;
         nh = new NoteDbHelper(context);
         nc = new NoteController(nh);
         this.listid = Listid;
@@ -47,6 +48,7 @@ public class UpdateListDialog extends DialogFragment {
                 .setPositiveButton("ändern", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         nc.updateList(new ListModel(listid, categoryid, listname));
+                        slv.loadList();
                     }
                 })
                 .setNegativeButton("abbrechen", new DialogInterface.OnClickListener() {

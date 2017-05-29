@@ -11,13 +11,14 @@ import Model.ListModel;
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
 import ch.bbcag.notizenapp.ListView;
+import ch.bbcag.notizenapp.SingelListView;
 
 public class DeleteListDialog extends DialogFragment {
 
     private NoteDbHelper nh;
     private NoteController nc;
 
-    private ListView lv;
+    private SingelListView slv;
 
     private Bundle Test;
 
@@ -25,13 +26,11 @@ public class DeleteListDialog extends DialogFragment {
     private  int categoryid;
     private String listname;
 
-    public DeleteListDialog(ListView context, Bundle savedInstanceState, int Listid, int categoryid, String listname){
-        lv = context;
+    public DeleteListDialog(SingelListView context, Bundle savedInstanceState, int Listid){
+        slv = context;
         nh = new NoteDbHelper(context);
         nc = new NoteController(nh);
         this.listid = Listid;
-        this.categoryid = categoryid;
-        this.listname = listname;
         this.Test = savedInstanceState;
     }
     @Override
@@ -45,7 +44,7 @@ public class DeleteListDialog extends DialogFragment {
                 .setMessage("Sind sie sicher, dass sie die Liste löschen wollen?")
                 .setPositiveButton("löschen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        nc.deleteList(new ListModel(listid, categoryid, listname));
+                        nc.deleteList(listid);
                     }
                 })
                 .setNegativeButton("abbruch", new DialogInterface.OnClickListener() {
