@@ -7,10 +7,13 @@ import android.app.FragmentManager;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -27,9 +30,13 @@ public class CategoryView extends AppCompatActivity {
     ArrayAdapter ListofCategories;
 
     private ArrayList<CategoryModel> Categories = new ArrayList<CategoryModel>();
-
     private CategoryView cv = this;
 
+    float historicX = Float.NaN, historicY = Float.NaN;
+    static final int DELTA = 50;
+    enum Direction {LEFT, RIGHT;}
+
+    TextView lvSimple = (TextView) findViewById(R.id.category);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +46,13 @@ public class CategoryView extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.category_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("NotizApp");
+
+        lvSimple.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
 
         nh = new NoteDbHelper(this);
@@ -59,6 +73,7 @@ public class CategoryView extends AppCompatActivity {
 
         setImage();
         loadList();
+
     }
 
     @Override
@@ -66,6 +81,7 @@ public class CategoryView extends AppCompatActivity {
         super.onResume();
         loadList();
     }
+
 
     private  void setImage(){
         ImageView img = (ImageView) findViewById(R.id.addCategory);
