@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.app.DialogFragment;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 
+import Model.CategoryModel;
 import Model.ListModel;
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
@@ -42,13 +45,18 @@ public class UpdateListDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
+        final View v = inflater.inflate(R.layout.dialog_add_category, null);
+        final EditText te = (EditText) v.findViewById(R.id.newcategoriename);
+        te.setText(listname);
 
         builder.setMessage("Liste umbenennen")
-                .setView(inflater.inflate(R.layout.dialog_add_list, null))
+                .setView(v)
                 .setPositiveButton("ändern", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        nc.updateList(new ListModel(listid, categoryid, listname));
-                        slv.loadList();
+                        if(te.getText().toString() != ""){
+                            nc.updateList(new ListModel(listid, categoryid, te.getText().toString()));
+                            slv.updateListname();
+                        }
                     }
                 })
                 .setNegativeButton("abbrechen", new DialogInterface.OnClickListener() {
