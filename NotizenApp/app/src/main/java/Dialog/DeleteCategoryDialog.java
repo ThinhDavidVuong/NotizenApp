@@ -46,6 +46,7 @@ public class DeleteCategoryDialog extends DialogFragment {
                 .setPositiveButton("löschen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                     nc.deleteCategory(categoryid);
+                        lv.backToTop();
                     }
                 })
                 .setNegativeButton("abbruch", new DialogInterface.OnClickListener() {

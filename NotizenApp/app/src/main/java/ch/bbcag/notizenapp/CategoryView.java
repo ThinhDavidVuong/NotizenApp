@@ -111,45 +111,4 @@ public class CategoryView extends AppCompatActivity {
         nh.close();
         super.onDestroy();
     }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-
-            case R.id.action_edit:
-                CreateCategoryDialog dlg = new CreateCategoryDialog(cv, Bundle.EMPTY);
-                String tag = "";
-                FragmentManager fm = getFragmentManager();
-                dlg.show(fm, tag);
-                return true;
-
-            case R.id.action_delete:
-                // User chose the "Favorite" action, mark the current item
-                // as a favorite...
-                return true;
-
-            case R.id.action_overview:
-                // User chose the "Favorite" action, mark the current item
-                // as a favorite...
-
-                Intent intent = new Intent(this, CategoryView.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                return true;
-
-            default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(final Menu menu) {
-        menu.clear();
-        getMenuInflater().inflate(R.menu.toolbar, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 }

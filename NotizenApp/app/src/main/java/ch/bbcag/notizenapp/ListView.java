@@ -129,6 +129,13 @@ public class ListView extends AppCompatActivity {
         setCategoryName();
     }
 
+    public void backToTop(){
+        Intent intent = new Intent(this, CategoryView.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+
+    }
+
     @Override
     protected void onDestroy() {
         nh.close();
@@ -137,6 +144,7 @@ public class ListView extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        
         switch (item.getItemId()) {
 
             case R.id.action_edit:
@@ -154,17 +162,12 @@ public class ListView extends AppCompatActivity {
                 return true;
 
             case R.id.action_overview:
-                // User chose the "Favorite" action, mark the current item
-                // as a favorite...
-
                 Intent intent = new Intent(this, CategoryView.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 return true;
 
             default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
 
         }
