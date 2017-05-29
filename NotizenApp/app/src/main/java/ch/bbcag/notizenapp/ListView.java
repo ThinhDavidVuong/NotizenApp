@@ -105,7 +105,7 @@ public class ListView extends AppCompatActivity {
 
                 Toast.makeText(ListView.this, nameofselected, Toast.LENGTH_SHORT).show();
 
-                intent.putExtra("category_id", category_id);
+                intent.putExtra("category_id", Integer.toString(category_id));
                 intent.putExtra("name", nameofselected);
                 startActivity(intent);
             }
