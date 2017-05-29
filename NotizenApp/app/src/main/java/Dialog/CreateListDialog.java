@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
-import ch.bbcag.notizenapp.ListView;
+import ch.bbcag.notizenapp.MultiListView;
 import ch.bbcag.notizenapp.R;
 
 public class CreateListDialog extends DialogFragment {
@@ -19,13 +19,13 @@ public class CreateListDialog extends DialogFragment {
     private NoteDbHelper nh;
     private NoteController nc;
 
-    private ListView lv;
+    private MultiListView lv;
 
     private Bundle Test;
 
     private int categoryid;
 
-    public CreateListDialog(ListView context, Bundle savedInstanceState, int Categoryid){
+    public CreateListDialog(MultiListView context, Bundle savedInstanceState, int Categoryid){
         lv = context;
         nh = new NoteDbHelper(context);
         nc = new NoteController(nh);

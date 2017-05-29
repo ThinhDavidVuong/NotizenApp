@@ -9,11 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
-import Model.CategoryModel;
 import Model.ListModel;
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
-import ch.bbcag.notizenapp.ListView;
 import ch.bbcag.notizenapp.R;
 import ch.bbcag.notizenapp.SingelListView;
 

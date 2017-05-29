@@ -25,7 +25,7 @@ import Model.ListModel;
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
 
-public class ListView extends AppCompatActivity {
+public class MultiListView extends AppCompatActivity {
 
     private NoteDbHelper nh;
     private NoteController nc;
@@ -36,7 +36,7 @@ public class ListView extends AppCompatActivity {
     private String category_name;
     private ArrayList<ListModel> Listen = new ArrayList<ListModel>();
 
-    private ListView lv = this;
+    private MultiListView lv = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +143,7 @@ public class ListView extends AppCompatActivity {
                     }
                 }
 
-                Toast.makeText(ListView.this, nameofselected, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MultiListView.this, nameofselected, Toast.LENGTH_SHORT).show();
 
                 intent.putExtra("category_id", Integer.toString(category_id));
                 intent.putExtra("name", nameofselected);

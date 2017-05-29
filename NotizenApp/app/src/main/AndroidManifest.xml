@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ListView"
+            android:name=".MultiListView"
             android:label="@string/title_activity_list_view"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

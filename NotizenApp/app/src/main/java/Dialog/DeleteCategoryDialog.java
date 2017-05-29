@@ -9,21 +9,21 @@ import android.view.LayoutInflater;
 
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
-import ch.bbcag.notizenapp.ListView;
+import ch.bbcag.notizenapp.MultiListView;
 
 public class DeleteCategoryDialog extends DialogFragment {
 
     private NoteDbHelper nh;
     private NoteController nc;
 
-    private ListView lv;
+    private MultiListView lv;
 
     private Bundle Test;
 
     private int categoryid;
 
 
-    public DeleteCategoryDialog(ListView context, Bundle savedInstanceState, int categoryid){
+    public DeleteCategoryDialog(MultiListView context, Bundle savedInstanceState, int categoryid){
         lv = context;
         nh = new NoteDbHelper(context);
         nc = new NoteController(nh);

@@ -7,8 +7,6 @@ import android.app.FragmentManager;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -88,7 +86,7 @@ public class CategoryView extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), ListView.class);
+                Intent intent = new Intent(getApplicationContext(), MultiListView.class);
                 String nameofselected = parent.getItemAtPosition(position).toString();
 
                 for(int i = Categories.size()-1; i >= 0; i--){

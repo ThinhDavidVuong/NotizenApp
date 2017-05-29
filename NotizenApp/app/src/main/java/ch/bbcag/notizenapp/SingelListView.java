@@ -170,7 +170,7 @@ public class SingelListView extends AppCompatActivity {
     }
 
     public void backToUperActivity(){
-        Intent intent = new Intent(this, ListView.class);
+        Intent intent = new Intent(this, MultiListView.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
 
