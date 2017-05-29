@@ -8,13 +8,19 @@
     tools:context=".SingelListView"
     tools:showIn="@layout/activity_singel_list_view">
 
-    <TextView android:text="Liste XY"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+    <TextView
+        android:layout_width="105dp"
+        android:layout_height="27dp"
         android:id="@+id/listname"
         android:textSize="20dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintHorizontal_bias="0.501"
+        android:gravity="center"/>
 
     <ListView
         android:id="@+id/Listoftasks"
