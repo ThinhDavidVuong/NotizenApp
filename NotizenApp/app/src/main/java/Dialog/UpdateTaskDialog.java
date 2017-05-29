@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.app.DialogFragment;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 
 import Model.TaskModel;
 import NoteDB.NoteController;
@@ -43,11 +45,18 @@ public class UpdateTaskDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
+        final View v = inflater.inflate(R.layout.dialog_add_category, null);
+        final EditText te = (EditText) v.findViewById(R.id.newcategoriename);
+        te.setText(taskname);
+
         builder.setMessage("Aufgabe umbennenen")
-                .setView(inflater.inflate(R.layout.dialog_add_list, null))
+                .setView(v)
                 .setPositiveButton("ändern", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        nc.updateTask(new TaskModel(taskid, listid, taskname, isChecked));
+                        if(te.getText().toString() != ""){
+                            nc.updateTask(new TaskModel(taskid, listid, te.getText().toString(), isChecked));
+                            slv.loadList();
+                        }
                     }
                 })
                 .setNegativeButton("abbrechen", new DialogInterface.OnClickListener() {

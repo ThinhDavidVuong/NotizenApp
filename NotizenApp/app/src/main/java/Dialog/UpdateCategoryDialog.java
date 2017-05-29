@@ -44,6 +44,7 @@ public class UpdateCategoryDialog extends DialogFragment {
 
         final View v = inflater.inflate(R.layout.dialog_add_category, null);
         final EditText te = (EditText) v.findViewById(R.id.newcategoriename);
+        te.setText(categoryname);
 
         builder.setMessage("Kategotie umbenennen")
                 .setView(v)
