@@ -63,6 +63,13 @@ public class CategoryView extends AppCompatActivity {
         loadList();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        loadList();
+    }
+
     private  void setImage(){
         ImageView img = (ImageView) findViewById(R.id.addCategory);
         img.setImageResource(R.drawable.ic_add_black_36dp);
@@ -98,7 +105,6 @@ public class CategoryView extends AppCompatActivity {
             }
         };
         ListViewListsodlists.setOnItemClickListener(mListClickedHandler);
-
     }
 
     public void loadList(){

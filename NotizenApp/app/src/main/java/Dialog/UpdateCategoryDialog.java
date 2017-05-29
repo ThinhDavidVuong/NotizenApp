@@ -46,7 +46,7 @@ public class UpdateCategoryDialog extends DialogFragment {
         final EditText te = (EditText) v.findViewById(R.id.newcategoriename);
         te.setText(categoryname);
 
-        builder.setMessage("Kategotie umbenennen")
+        builder.setMessage("Kategorie umbenennen")
                 .setView(v)
                 .setPositiveButton("ändern", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
