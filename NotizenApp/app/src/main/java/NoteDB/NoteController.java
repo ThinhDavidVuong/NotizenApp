@@ -251,14 +251,11 @@ public class NoteController {
                 state = false;
             }
 
-<<<<<<< HEAD
-            allCategory.add(new QuestModel(quest_id, list_id, task_name, state));
-=======
+
             allCategory.add(new TaskModel(quest_id, list_id, task_name, state));
 
             // Meldung der durchlaufenden Elemente
             Log.e("@@@@", task_name);
->>>>>>> 54d02a15f0e72f949cca7f6435fedf5de8376c63
         }
         cursor.close();
         return allCategory;
