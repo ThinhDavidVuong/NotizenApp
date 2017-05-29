@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -96,11 +97,11 @@ public class SingelListView extends AppCompatActivity {
     }
 
     public void onCheckboxClicked(View view) {
-        // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
 
-        nc.updateTask(new TaskModel(1,1,"TEST", checked));
+        TaskModel tm = (TaskModel)view.getTag();
 
+        nc.updateTaskState(new TaskModel(tm.id, tm.list_id, tm.name, checked));
     }
 
     public void updateListname(){
