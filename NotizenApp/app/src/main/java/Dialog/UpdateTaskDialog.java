@@ -61,7 +61,7 @@ public class UpdateTaskDialog extends DialogFragment {
                 })
                 .setNegativeButton("abbrechen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
+                        // User cancelled the dialog and nothing happens
                     }
                 });
 

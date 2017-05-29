@@ -1,5 +1,6 @@
 package Model;
 
+//is Used to hold the infromation for a list
 public class ListModel {
 
     public int id;

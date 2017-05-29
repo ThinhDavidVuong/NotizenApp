@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import Dialog.CreateCategoryDialog;
 import Dialog.CreateListDialog;
 import Dialog.DeleteCategoryDialog;
 import Dialog.UpdateCategoryDialog;
@@ -61,23 +60,64 @@ public class ListView extends AppCompatActivity {
             }
         });
 
+        //create a new instance of the DBController
         nh = new NoteDbHelper(this);
         nc = new NoteController(nh);
 
-        setImage();
+        //load all requierd data
+        loadImageForAddFunction();
         updateCategoryname();
         setCategoryName();
         loadList();
     }
 
-    private  void setImage(){
+    private  void loadImageForAddFunction(){
         ImageView img = (ImageView) findViewById(R.id.addList);
         img.setImageResource(R.drawable.ic_add_black_36dp);
     }
 
+    //sets the name of the selected category on the TextView on top of the activity
     private void setCategoryName(){
         TextView text = (TextView) findViewById(R.id.categoryname);
         text.setText(category_name);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.action_edit:
+                UpdateCategoryDialog udlg = new UpdateCategoryDialog(lv, Bundle.EMPTY, category_id, category_name);
+                String tag = "";
+                FragmentManager fm = getFragmentManager();
+                udlg.show(fm, tag);
+                return true;
+
+            case R.id.action_delete:
+                DeleteCategoryDialog ddlg = new DeleteCategoryDialog(lv, Bundle.EMPTY, category_id);
+                String dtag = "";
+                FragmentManager dfm = getFragmentManager();
+                ddlg.show(dfm, dtag);
+                return true;
+
+            case R.id.action_overview:
+                Intent intent = new Intent(this, CategoryView.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(final Menu menu) {
+        menu.clear();
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void loadListsInListView() {
@@ -129,7 +169,7 @@ public class ListView extends AppCompatActivity {
         setCategoryName();
     }
 
-    public void backToTop(){
+    public void backToUperActivity(){
         Intent intent = new Intent(this, CategoryView.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -142,48 +182,11 @@ public class ListView extends AppCompatActivity {
         super.onDestroy();
     }
 
+    //reload the list onResume
     @Override
     protected void onResume() {
         super.onResume();
         loadList();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-
-            case R.id.action_edit:
-                UpdateCategoryDialog udlg = new UpdateCategoryDialog(lv, Bundle.EMPTY, category_id, category_name);
-                String tag = "";
-                FragmentManager fm = getFragmentManager();
-                udlg.show(fm, tag);
-                return true;
-
-            case R.id.action_delete:
-                DeleteCategoryDialog ddlg = new DeleteCategoryDialog(lv, Bundle.EMPTY, category_id);
-                String dtag = "";
-                FragmentManager dfm = getFragmentManager();
-                ddlg.show(dfm, dtag);
-                return true;
-
-            case R.id.action_overview:
-                Intent intent = new Intent(this, CategoryView.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(final Menu menu) {
-        menu.clear();
-        getMenuInflater().inflate(R.menu.toolbar, menu);
-        return super.onCreateOptionsMenu(menu);
     }
 
 }

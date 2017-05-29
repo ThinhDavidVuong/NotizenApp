@@ -18,6 +18,7 @@ import ch.bbcag.notizenapp.R;
  * Created by berpet on 24.05.2017.
  */
 
+//is used to for the list of Tasks
 public class TaskAdapter extends ArrayAdapter<TaskModel> {
 
 
@@ -34,12 +35,16 @@ public class TaskAdapter extends ArrayAdapter<TaskModel> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_task, parent, false);
         }
 
+        //gets the controlls form the View
         TextView text_task = (TextView) convertView.findViewById(R.id.text_task);
         CheckBox checkbox_task = (CheckBox) convertView.findViewById(R.id.checkbox_task);
         ImageButton image_button = (ImageButton) convertView.findViewById(R.id.editbutton);
 
+        //set the contetnt of the controlls
         text_task.setText(tm.name);
         checkbox_task.setChecked(tm.isChecked);
+
+        //add the TaskModel to the controlls for later usage
         checkbox_task.setTag(tm);
         image_button.setTag(tm);
 

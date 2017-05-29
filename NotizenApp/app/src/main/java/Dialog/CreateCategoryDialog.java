@@ -37,6 +37,7 @@ public class CreateCategoryDialog extends DialogFragment {
 
         final View v = inflater.inflate(R.layout.dialog_add_category, null);
 
+        //Build the dialog
         builder.setMessage("Neue Kategotie")
                 .setView(v)
                 .setPositiveButton("erstellen", new DialogInterface.OnClickListener() {
@@ -50,7 +51,7 @@ public class CreateCategoryDialog extends DialogFragment {
                 })
                 .setNegativeButton("abbrechen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
+                        // User cancelled the dialog and nothing happens
                     }
                 });
 

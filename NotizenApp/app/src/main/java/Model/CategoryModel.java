@@ -1,5 +1,6 @@
 package Model;
 
+//is used to hold the information for a catrgory
 public class CategoryModel {
 
     public int id;

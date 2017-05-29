@@ -13,7 +13,6 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -43,6 +42,7 @@ public class SingelListView extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.singellist_toolbar);
         setSupportActionBar(toolbar);
 
+        //get all infos form the Intent
         Intent intent = getIntent();
         list_id = Integer.parseInt(intent.getStringExtra("list_id"));
         catagory_id = Integer.parseInt(intent.getStringExtra("category_id"));
@@ -52,88 +52,33 @@ public class SingelListView extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                CreateTaskDialog dlg = new CreateTaskDialog(slv, Bundle.EMPTY, 1);
+                CreateTaskDialog dlg = new CreateTaskDialog(slv, Bundle.EMPTY, list_id);
                 String tag = "";
                 FragmentManager fm = getFragmentManager();
                 dlg.show(fm, tag);
             }
         });
 
+        //create a new instance of the DBController
         nh = new NoteDbHelper(this);
         nc = new NoteController(nh);
 
-
-        setImage();
+        //load all requierd data
+        loadImageForAddFunction();
         setListName();
         loadList();
     }
 
-    private  void setImage(){
+    private  void loadImageForAddFunction(){
         ImageView img = (ImageView) findViewById(R.id.addTask);
         img.setImageResource(R.drawable.ic_add_black_36dp);
     }
 
+    //sets the name of the selected list on the TextView on top of the activity
     private void setListName(){
+        setTitle(list_name);
         TextView text = (TextView) findViewById(R.id.listname);
         text.setText(list_name);
-    }
-
-    private void loadListsInListView() {
-        android.widget.ListView ListViewListsodlists = (android.widget.ListView) findViewById(R.id.Listoftasks);
-        ArrayList<TaskModel> TaskModels = new ArrayList<TaskModel>();
-
-        for (int i = Tasks.size()-1; i >= 0; i--) {
-            TaskModels.add(Tasks.get(i));
-        }
-
-        ListofTasks = new TaskAdapter(this, TaskModels);
-
-        ListViewListsodlists.setAdapter(ListofTasks);
-    }
-
-    public void loadList() {
-        Tasks = nc.readAllTasks(list_id);
-        loadListsInListView();
-    }
-
-    public void onCheckboxClicked(View view) {
-        boolean checked = ((CheckBox) view).isChecked();
-
-        TaskModel tm = (TaskModel)view.getTag();
-
-        nc.updateTaskState(new TaskModel(tm.id, tm.list_id, tm.name, checked));
-    }
-
-    public void onEditButtonCliced(View view) {
-        TaskModel tm = (TaskModel) ((ImageButton) view).getTag();
-        UpdateTaskDialog dlg = new UpdateTaskDialog(slv, Bundle.EMPTY, tm.id, tm.list_id, tm.name, tm.isChecked);
-        String tag = "";
-        FragmentManager fm = getFragmentManager();
-        dlg.show(fm, tag);
-    }
-
-    public void updateListname(){
-        ArrayList<ListModel> Lists = nc.readAllLists(catagory_id);
-        for(int i = 0; i < Lists.size(); i++){
-            if(Lists.get(i).id == list_id){
-                list_name = Lists.get(i).name;
-            }
-        }
-        setListName();
-    }
-
-    public void backToTop(){
-        Intent intent = new Intent(this, ListView.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        nh.close();
-        super.onDestroy();
     }
 
     @Override
@@ -177,4 +122,65 @@ public class SingelListView extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.toolbar, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
+    private void loadListsInListView() {
+        android.widget.ListView ListViewListsodlists = (android.widget.ListView) findViewById(R.id.Listoftasks);
+        ArrayList<TaskModel> TaskModels = new ArrayList<TaskModel>();
+
+        for (int i = Tasks.size()-1; i >= 0; i--) {
+            TaskModels.add(Tasks.get(i));
+        }
+
+        ListofTasks = new TaskAdapter(this, TaskModels);
+
+        ListViewListsodlists.setAdapter(ListofTasks);
+    }
+
+    public void loadList() {
+        Tasks = nc.readAllTasks(list_id);
+        loadListsInListView();
+    }
+
+    //saves the new "isCecked" value of a Task in the DB
+    public void onCheckboxClicked(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+
+        TaskModel tm = (TaskModel)view.getTag();
+
+        nc.updateTaskState(new TaskModel(tm.id, tm.list_id, tm.name, checked));
+    }
+
+    //shows the dialog to edit a task
+    public void onEditButtonCliced(View view) {
+        TaskModel tm = (TaskModel) ((ImageButton) view).getTag();
+        UpdateTaskDialog dlg = new UpdateTaskDialog(slv, Bundle.EMPTY, tm.id, tm.list_id, tm.name, tm.isChecked);
+        String tag = "";
+        FragmentManager fm = getFragmentManager();
+        dlg.show(fm, tag);
+    }
+
+    public void updateListname(){
+        ArrayList<ListModel> Lists = nc.readAllLists(catagory_id);
+        for(int i = 0; i < Lists.size(); i++){
+            if(Lists.get(i).id == list_id){
+                list_name = Lists.get(i).name;
+            }
+        }
+        setListName();
+    }
+
+    public void backToUperActivity(){
+        Intent intent = new Intent(this, ListView.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        nh.close();
+        super.onDestroy();
+    }
+
+
 }

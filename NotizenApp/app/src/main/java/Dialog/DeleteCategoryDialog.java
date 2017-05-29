@@ -6,15 +6,10 @@ import android.os.Bundle;
 import android.app.DialogFragment;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.EditText;
 
-import Model.CategoryModel;
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
-import ch.bbcag.notizenapp.CategoryView;
 import ch.bbcag.notizenapp.ListView;
-import ch.bbcag.notizenapp.R;
 
 public class DeleteCategoryDialog extends DialogFragment {
 
@@ -46,12 +41,12 @@ public class DeleteCategoryDialog extends DialogFragment {
                 .setPositiveButton("löschen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                     nc.deleteCategory(categoryid);
-                        lv.backToTop();
+                        lv.backToUperActivity();
                     }
                 })
                 .setNegativeButton("abbruch", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
+                        // User cancelled the dialog and nothing happens
                     }
                 });
 

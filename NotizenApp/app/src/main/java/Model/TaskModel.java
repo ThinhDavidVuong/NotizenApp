@@ -1,5 +1,6 @@
 package Model;
 
+//is used to hold the information of a task
 public class TaskModel {
 
     public int id;

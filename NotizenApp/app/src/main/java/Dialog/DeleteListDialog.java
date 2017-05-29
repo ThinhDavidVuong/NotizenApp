@@ -7,10 +7,8 @@ import android.app.DialogFragment;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 
-import Model.ListModel;
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
-import ch.bbcag.notizenapp.ListView;
 import ch.bbcag.notizenapp.SingelListView;
 
 public class DeleteListDialog extends DialogFragment {
@@ -45,12 +43,12 @@ public class DeleteListDialog extends DialogFragment {
                 .setPositiveButton("löschen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         nc.deleteList(listid);
-                            slv.backToTop();
+                            slv.backToUperActivity();
                     }
                 })
                 .setNegativeButton("abbruch", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
+                        // User cancelled the dialog and nothing happens
                     }
                 });
 
