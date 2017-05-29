@@ -102,13 +102,13 @@ public class NoteController {
                 selectionArgs);
     }
 
-    public void deleteCategory(CategoryModel cm) {
+    public void deleteCategory(int category_id) {
         // Define 'where' part of query.
         String selection = NoteContract.CategoryEntry._ID + " LIKE ?";
         // Specify arguments in placeholder order.
-        String[] selectionArgs = { Integer.toString(cm.id) };
+        String[] selectionArgs = { Integer.toString(category_id) };
         // Issue SQL statement.
-        db.delete(NoteContract.CategoryEntry.COLUMN_NAME_CATEGORY, selection, selectionArgs);
+        db.delete(NoteContract.CategoryEntry.TABLE_CATEGORY, selection, selectionArgs);
     }
 
     //List functions
@@ -187,11 +187,11 @@ public class NoteController {
                 selectionArgs);
     }
 
-    public void deleteList(ListModel lm) {
+    public void deleteList(int list_id) {
         // Define 'where' part of query.
         String selection = NoteContract.ListEntry._ID + " LIKE ?";
         // Specify arguments in placeholder order.
-        String[] selectionArgs = { Integer.toString(lm.id) };
+        String[] selectionArgs = { Integer.toString(list_id) };
         // Issue SQL statement.
         db.delete(NoteContract.ListEntry.TABLE_LIST, selection, selectionArgs);
     }
@@ -313,12 +313,12 @@ public class NoteController {
                 selectionArgs);
     }
 
-    public void deleteTask(TaskModel qm) {
+    public void deleteTask(int task_id) {
         // Define 'where' part of query.
         String selection = NoteContract.TaskEntry._ID + " LIKE ?";
         // Specify arguments in placeholder order.
-        String[] selectionArgs = { Integer.toString(qm.id) };
+        String[] selectionArgs = { Integer.toString(task_id) };
         // Issue SQL statement.
-        db.delete(NoteContract.TaskEntry.COLUMN_NAME_TASK, selection, selectionArgs);
+        db.delete(NoteContract.TaskEntry.TABLE_TASK, selection, selectionArgs);
     }
 }
