@@ -38,6 +38,7 @@ public class TaskAdapter extends ArrayAdapter<TaskModel> {
 
         text_task.setText(tm.name);
         checkbox_task.setChecked(tm.isChecked);
+        checkbox_task.setTag(tm);
 
         return convertView;
     }
