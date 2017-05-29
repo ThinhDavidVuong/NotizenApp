@@ -114,6 +114,13 @@ public class SingelListView extends AppCompatActivity {
         setListName();
     }
 
+    public void backToTop(){
+        Intent intent = new Intent(this, ListView.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+
+    }
+
     @Override
     protected void onDestroy() {
         nh.close();

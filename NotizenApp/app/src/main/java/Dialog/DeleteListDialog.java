@@ -45,6 +45,7 @@ public class DeleteListDialog extends DialogFragment {
                 .setPositiveButton("löschen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         nc.deleteList(listid);
+                            slv.backToTop();
                     }
                 })
                 .setNegativeButton("abbruch", new DialogInterface.OnClickListener() {

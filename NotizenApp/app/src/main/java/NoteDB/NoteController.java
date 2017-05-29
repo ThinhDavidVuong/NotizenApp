@@ -54,7 +54,7 @@ public class NoteController {
 
         // How you want the results sorted in the resulting Cursor
         String sortOrder =
-                NoteContract.CategoryEntry.COLUMN_NAME_CATEGORY + " DESC";
+                NoteContract.CategoryEntry._ID + " ASC";
 
         Cursor cursor = db.query(
                 NoteContract.CategoryEntry.TABLE_CATEGORY,        // The table to query
@@ -139,7 +139,7 @@ public class NoteController {
 
         // How you want the results sorted in the resulting Cursor
         String sortOrder =
-                NoteContract.ListEntry.COLUMN_NAME_LIST + " DESC";
+                NoteContract.ListEntry._ID + " ASC";
 
         Cursor cursor = db.query(
                 NoteContract.ListEntry.TABLE_LIST,        // The table to query
@@ -226,7 +226,7 @@ public class NoteController {
 
         // How you want the results sorted in the resulting Cursor
         String sortOrder =
-                NoteContract.TaskEntry.COLUMN_NAME_TASK + " DESC";
+                NoteContract.TaskEntry._ID + " ASC";
 
         Cursor cursor = db.query(
                 NoteContract.TaskEntry.TABLE_TASK,        // The table to query
