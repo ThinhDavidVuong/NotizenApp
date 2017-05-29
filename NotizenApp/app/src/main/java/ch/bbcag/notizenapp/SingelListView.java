@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -102,6 +103,14 @@ public class SingelListView extends AppCompatActivity {
         TaskModel tm = (TaskModel)view.getTag();
 
         nc.updateTaskState(new TaskModel(tm.id, tm.list_id, tm.name, checked));
+    }
+
+    public void onEditButtonCliced(View view) {
+        TaskModel tm = (TaskModel) ((ImageButton) view).getTag();
+        UpdateTaskDialog dlg = new UpdateTaskDialog(slv, Bundle.EMPTY, tm.id, tm.list_id, tm.name, tm.isChecked);
+        String tag = "";
+        FragmentManager fm = getFragmentManager();
+        dlg.show(fm, tag);
     }
 
     public void updateListname(){

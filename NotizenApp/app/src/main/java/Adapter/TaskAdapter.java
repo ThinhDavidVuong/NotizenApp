@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -35,10 +36,12 @@ public class TaskAdapter extends ArrayAdapter<TaskModel> {
 
         TextView text_task = (TextView) convertView.findViewById(R.id.text_task);
         CheckBox checkbox_task = (CheckBox) convertView.findViewById(R.id.checkbox_task);
+        ImageButton image_button = (ImageButton) convertView.findViewById(R.id.editbutton);
 
         text_task.setText(tm.name);
         checkbox_task.setChecked(tm.isChecked);
         checkbox_task.setTag(tm);
+        image_button.setTag(tm);
 
         return convertView;
     }
