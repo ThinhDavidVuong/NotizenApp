@@ -67,21 +67,21 @@ public class NoteController {
         );
 
         // For each row, you can read a column's value by calling one of the Cursor get methods.
-        ArrayList<CategoryModel> allCategory = new ArrayList<CategoryModel>();
+        ArrayList<CategoryModel> allCategories = new ArrayList<CategoryModel>();
         while(cursor.moveToNext()) {
             int category_id = cursor.getInt(
                     cursor.getColumnIndexOrThrow(NoteContract.CategoryEntry._ID));
             String category_name = cursor.getString(
                     cursor.getColumnIndexOrThrow(NoteContract.CategoryEntry.COLUMN_NAME_CATEGORY));
 
-            allCategory.add(new CategoryModel(category_id, category_name));
+            allCategories.add(new CategoryModel(category_id, category_name));
 
             // Meldung der durchlaufenden Elemente
             Log.e("@@@@", Integer.toString(category_id));
             Log.e("@@@@", category_name);
         }
         cursor.close();
-        return allCategory;
+        return allCategories;
     }
 
     public void updateCategory(CategoryModel cm) {
@@ -152,17 +152,21 @@ public class NoteController {
         );
 
         // For each row, you can read a column's value by calling one of the Cursor get methods.
-        ArrayList<ListModel> allCategory = new ArrayList<>();
+        ArrayList<ListModel> allLists = new ArrayList<>();
         while(cursor.moveToNext()) {
             int list_id = cursor.getInt(
                     cursor.getColumnIndexOrThrow(NoteContract.ListEntry._ID));
             String list_name = cursor.getString(
                     cursor.getColumnIndexOrThrow(NoteContract.ListEntry.COLUMN_NAME_LIST));
 
-            allCategory.add(new ListModel(list_id, category_id, list_name));
+            allLists.add(new ListModel(list_id, category_id, list_name));
+
+            // Meldung der durchlaufenden Elemente
+            Log.e("@@@@", Integer.toString(list_id));
+            Log.e("@@@@", list_name);
         }
         cursor.close();
-        return allCategory;
+        return allLists;
     }
 
     public void updateList(ListModel lm) {
@@ -204,7 +208,7 @@ public class NoteController {
         values.put(NoteContract.TaskEntry.COLUMN_NAME_CHECKED, 0);
 
         // Insert the new row, returning the primary key value of the new row
-        db.insert(NoteContract.ListEntry.TABLE_LIST, null, values);
+        db.insert(NoteContract.TaskEntry.TABLE_TASK, null, values);
     }
 
     public ArrayList<TaskModel> readAllTasks(int list_id) {
@@ -235,7 +239,7 @@ public class NoteController {
         );
 
         // For each row, you can read a column's value by calling one of the Cursor get methods.
-        ArrayList<TaskModel> allCategory = new ArrayList<>();
+        ArrayList<TaskModel> allTasks = new ArrayList<>();
         while(cursor.moveToNext()) {
             int quest_id = cursor.getInt(
                     cursor.getColumnIndexOrThrow(NoteContract.TaskEntry._ID));
@@ -252,13 +256,14 @@ public class NoteController {
             }
 
 
-            allCategory.add(new TaskModel(quest_id, list_id, task_name, state));
+            allTasks.add(new TaskModel(quest_id, list_id, task_name, state));
 
             // Meldung der durchlaufenden Elemente
+            Log.e("@@@@", Integer.toString(quest_id));
             Log.e("@@@@", task_name);
         }
         cursor.close();
-        return allCategory;
+        return allTasks;
     }
 
     public void updateTask(TaskModel qm) {
