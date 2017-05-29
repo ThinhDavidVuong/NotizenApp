@@ -17,8 +17,8 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/kategorie_uebersicht"
-        android:title="Kategorie Übersicht"
+        android:id="@+id/action_overview"
+        android:title="@string/action_overview"
         app:showAsAction="never"/>
 
     <!-- Settings, should always be in the overflow -->

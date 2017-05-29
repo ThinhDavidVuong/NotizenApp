@@ -156,6 +156,15 @@ public class ListView extends AppCompatActivity {
                 ddlg.show(dfm, dtag);
                 return true;
 
+            case R.id.action_overview:
+                // User chose the "Favorite" action, mark the current item
+                // as a favorite...
+
+                Intent intent = new Intent(this, CategoryView.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                return true;
+
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -166,8 +175,8 @@ public class ListView extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(final Menu menu) {
+        menu.clear();
         getMenuInflater().inflate(R.menu.toolbar, menu);
-
         return super.onCreateOptionsMenu(menu);
     }
 
