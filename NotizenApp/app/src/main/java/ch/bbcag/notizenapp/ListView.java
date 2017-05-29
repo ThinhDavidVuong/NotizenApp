@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import Dialog.CreateCategoryDialog;
 import Dialog.CreateListDialog;
+import Dialog.DeleteCategoryDialog;
 import Dialog.UpdateCategoryDialog;
 import Model.CategoryModel;
 import Model.ListModel;
@@ -64,6 +65,7 @@ public class ListView extends AppCompatActivity {
         nc = new NoteController(nh);
 
         setImage();
+        updateCategoryname();
         setCategoryName();
         loadList();
     }
@@ -103,6 +105,7 @@ public class ListView extends AppCompatActivity {
 
                 Toast.makeText(ListView.this, nameofselected, Toast.LENGTH_SHORT).show();
 
+                intent.putExtra("category_id", category_id);
                 intent.putExtra("name", nameofselected);
                 startActivity(intent);
             }
@@ -140,15 +143,17 @@ public class ListView extends AppCompatActivity {
                 return true;
 
             case R.id.action_edit:
-                UpdateCategoryDialog dlg = new UpdateCategoryDialog(lv, Bundle.EMPTY, category_id, category_name);
+                UpdateCategoryDialog udlg = new UpdateCategoryDialog(lv, Bundle.EMPTY, category_id, category_name);
                 String tag = "";
                 FragmentManager fm = getFragmentManager();
-                dlg.show(fm, tag);
+                udlg.show(fm, tag);
                 return true;
 
             case R.id.action_delete:
-                // User chose the "Favorite" action, mark the current item
-                // as a favorite...
+                DeleteCategoryDialog ddlg = new DeleteCategoryDialog(lv, Bundle.EMPTY, category_id);
+                String dtag = "";
+                FragmentManager dfm = getFragmentManager();
+                ddlg.show(dfm, dtag);
                 return true;
 
             default:

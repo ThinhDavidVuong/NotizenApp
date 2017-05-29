@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -26,6 +28,7 @@ public class SingelListView extends AppCompatActivity {
     private TaskAdapter ListofTasks;
 
     private int list_id;
+    private int catagory_id;
     private String list_name;
     private ArrayList<TaskModel> Tasks = new ArrayList<TaskModel>();
 
@@ -40,6 +43,7 @@ public class SingelListView extends AppCompatActivity {
 
         Intent intent = getIntent();
         list_id = Integer.parseInt(intent.getStringExtra("list_id"));
+        catagory_id = Integer.parseInt(intent.getStringExtra("category_id"));
         list_name = intent.getStringExtra("name");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addTask);
@@ -59,7 +63,7 @@ public class SingelListView extends AppCompatActivity {
 
 
         setImage();
-        setCategoryName();
+        setListName();
         loadList();
     }
 
@@ -68,7 +72,7 @@ public class SingelListView extends AppCompatActivity {
         img.setImageResource(R.drawable.ic_add_black_36dp);
     }
 
-    private void setCategoryName(){
+    private void setListName(){
         TextView text = (TextView) findViewById(R.id.listname);
         text.setText(list_name);
     }
@@ -88,7 +92,6 @@ public class SingelListView extends AppCompatActivity {
 
     public void loadList() {
         Tasks = nc.readAllTasks(list_id);
-        //Tasks.add(new TaskModel(1, 1, "TESTESS", false));
         loadListsInListView();
     }
 
@@ -100,9 +103,55 @@ public class SingelListView extends AppCompatActivity {
 
     }
 
+    public void updateListname(){
+        ArrayList<ListModel> Lists = nc.readAllLists(catagory_id);
+        for(int i = 0; i < Lists.size(); i++){
+            if(Lists.get(i).id == list_id){
+                list_name = Lists.get(i).name;
+            }
+        }
+        setListName();
+    }
+
     @Override
     protected void onDestroy() {
         nh.close();
         super.onDestroy();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                // User chose the "Settings" item, show the app settings UI...
+                return true;
+
+            case R.id.action_edit:
+                UpdateListDialog udlg = new UpdateListDialog(slv, Bundle.EMPTY, list_id, catagory_id, list_name);
+                String tag = "";
+                FragmentManager fm = getFragmentManager();
+                udlg.show(fm, tag);
+                return true;
+
+            case R.id.action_delete:
+                DeleteListDialog ddlg = new DeleteListDialog(slv, Bundle.EMPTY, list_id);
+                String dtag = "";
+                FragmentManager dfm = getFragmentManager();
+                ddlg.show(dfm, dtag);
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 }

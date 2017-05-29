@@ -48,6 +48,7 @@ public class UpdateListDialog extends DialogFragment {
                 .setPositiveButton("ändern", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         nc.updateList(new ListModel(listid, categoryid, listname));
+                        slv.loadList();
                     }
                 })
                 .setNegativeButton("abbrechen", new DialogInterface.OnClickListener() {

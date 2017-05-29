@@ -49,8 +49,10 @@ public class UpdateCategoryDialog extends DialogFragment {
                 .setView(v)
                 .setPositiveButton("ändern", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        nc.updateCategory(new CategoryModel(categoryid, te.getText().toString()));
-                        lv.updateCategoryname();
+                        if(te.getText().toString() != ""){
+                            nc.updateCategory(new CategoryModel(categoryid, te.getText().toString()));
+                            lv.updateCategoryname();
+                        }
                     }
                 })
                 .setNegativeButton("abbrechen", new DialogInterface.OnClickListener() {
