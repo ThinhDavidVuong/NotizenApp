@@ -122,9 +122,6 @@ public class SingelListView extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                // User chose the "Settings" item, show the app settings UI...
-                return true;
 
             case R.id.action_edit:
                 UpdateListDialog udlg = new UpdateListDialog(slv, Bundle.EMPTY, list_id, catagory_id, list_name);

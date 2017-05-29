@@ -14,16 +14,11 @@
         android:id="@+id/action_edit"
         android:icon="@drawable/ic_mode_edit_black_36dp"
         android:title="@string/action_edit"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_overview"
         android:title="@string/action_overview"
-        app:showAsAction="never"/>
-
-    <!-- Settings, should always be in the overflow -->
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
         app:showAsAction="never"/>
 
 </menu>
