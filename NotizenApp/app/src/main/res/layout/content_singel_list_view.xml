@@ -9,8 +9,8 @@
     tools:showIn="@layout/activity_singel_list_view">
 
     <TextView
-        android:layout_width="105dp"
-        android:layout_height="27dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:id="@+id/listname"
         android:textSize="20dp"
         android:layout_marginRight="8dp"
