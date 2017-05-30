@@ -76,7 +76,6 @@ public class SingelListView extends AppCompatActivity {
 
     //sets the name of the selected list on the TextView on top of the activity
     private void setListName(){
-        setTitle(list_name);
         TextView text = (TextView) findViewById(R.id.listname);
         text.setText(list_name);
     }

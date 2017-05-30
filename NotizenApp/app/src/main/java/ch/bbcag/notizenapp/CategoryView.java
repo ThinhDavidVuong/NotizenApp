@@ -49,48 +49,6 @@ public class CategoryView extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("NotizApp");
 
-        lv = (ListView) findViewById(R.id.ListOfCategories);
-
-        lv.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        x = event.getX();
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        if(event.getX() - x < 0){
-                            // Dynamic color red
-                            lv.setBackgroundColor(Color.rgb(255, 255 - Math.round(3 * event.getX()), 255 - Math.round(3 * event.getX())));
-                            return true;
-                        } else if(event.getX() - x > 0){
-                            // Dynamic color green
-                            lv.setBackgroundColor(Color.rgb(255 - 3* Math.round(event.getX()), 255 ,255 - 3 * Math.round(event.getX())));
-                            return true;
-                        }
-
-                    case MotionEvent.ACTION_UP:
-                        if (event.getX() - x < -DELTA) {
-                            lv.setBackgroundColor(Color.rgb(255, 255, 255));
-                            // Sliding from right to left
-                            return true;
-                        }
-                        else if (event.getX() - x > DELTA) {
-                            lv.setBackgroundColor(Color.rgb(255, 255, 255));
-                            // Sliding from left to right
-                            return true;
-                        }
-                        break;
-
-                    default:
-                        return false;
-                }
-                return false;
-            }
-        });
-
-
         nh = new NoteDbHelper(this);
         nc = new NoteController(nh);
 

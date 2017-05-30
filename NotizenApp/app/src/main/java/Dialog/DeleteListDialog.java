@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
-import ch.bbcag.notizenapp.MultiListView;
 import ch.bbcag.notizenapp.SingelListView;
 
 public class DeleteListDialog extends DialogFragment {
@@ -17,7 +16,7 @@ public class DeleteListDialog extends DialogFragment {
     private NoteDbHelper nh;
     private NoteController nc;
 
-    private MultiListView mlv;
+    private SingelListView slv;
 
     private Bundle Test;
 
@@ -25,8 +24,8 @@ public class DeleteListDialog extends DialogFragment {
     private  int categoryid;
     private String listname;
 
-    public DeleteListDialog(MultiListView context, Bundle savedInstanceState, int Listid){
-        mlv = context;
+    public DeleteListDialog(SingelListView context, Bundle savedInstanceState, int Listid){
+        slv = context;
         nh = new NoteDbHelper(context);
         nc = new NoteController(nh);
         this.listid = Listid;
@@ -44,7 +43,7 @@ public class DeleteListDialog extends DialogFragment {
                 .setPositiveButton("löschen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         nc.deleteList(listid);
-                            mlv.loadList();
+                            slv.backToUperActivity();
                     }
                 })
                 .setNegativeButton("abbruch", new DialogInterface.OnClickListener() {

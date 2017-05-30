@@ -24,7 +24,7 @@
 
     <ListView
         android:id="@+id/ListOfCategories"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginLeft="8dp"
