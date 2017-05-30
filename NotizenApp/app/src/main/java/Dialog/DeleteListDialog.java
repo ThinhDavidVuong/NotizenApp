@@ -37,7 +37,7 @@ public class DeleteListDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-
+        
         builder.setTitle("Liste löschen")
                 .setMessage("Sind sie sicher, dass sie die Liste löschen wollen?")
                 .setPositiveButton("löschen", new DialogInterface.OnClickListener() {
