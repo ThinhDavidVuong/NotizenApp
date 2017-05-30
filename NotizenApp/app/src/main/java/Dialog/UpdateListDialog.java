@@ -12,6 +12,7 @@ import android.widget.EditText;
 import Model.ListModel;
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
+import ch.bbcag.notizenapp.MultiListView;
 import ch.bbcag.notizenapp.R;
 import ch.bbcag.notizenapp.SingelListView;
 
@@ -19,7 +20,7 @@ public class UpdateListDialog extends DialogFragment {
     private NoteDbHelper nh;
     private NoteController nc;
 
-    private SingelListView slv;
+    private MultiListView mlv;
 
     private Bundle Test;
 
@@ -27,8 +28,8 @@ public class UpdateListDialog extends DialogFragment {
     private  int categoryid;
     private String listname;
 
-    public UpdateListDialog(SingelListView context, Bundle savedInstanceState, int Listid, int categoryid, String listname){
-        slv = context;
+    public UpdateListDialog(MultiListView context, Bundle savedInstanceState, int Listid, int categoryid, String listname){
+        mlv = context;
         nh = new NoteDbHelper(context);
         nc = new NoteController(nh);
         this.listid = Listid;
@@ -53,7 +54,7 @@ public class UpdateListDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         if(te.getText().toString() != ""){
                             nc.updateList(new ListModel(listid, categoryid, te.getText().toString()));
-                            slv.updateListname();
+                            mlv.loadList();
                         }
                     }
                 })

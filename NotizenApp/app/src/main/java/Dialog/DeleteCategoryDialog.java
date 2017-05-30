@@ -2,6 +2,7 @@ package Dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.icu.util.ULocale;
 import android.os.Bundle;
 import android.app.DialogFragment;
 import android.app.AlertDialog;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
+import ch.bbcag.notizenapp.CategoryView;
 import ch.bbcag.notizenapp.MultiListView;
 
 public class DeleteCategoryDialog extends DialogFragment {
@@ -16,15 +18,15 @@ public class DeleteCategoryDialog extends DialogFragment {
     private NoteDbHelper nh;
     private NoteController nc;
 
-    private MultiListView lv;
+    private CategoryView cv;
 
     private Bundle Test;
 
     private int categoryid;
 
 
-    public DeleteCategoryDialog(MultiListView context, Bundle savedInstanceState, int categoryid){
-        lv = context;
+    public DeleteCategoryDialog(CategoryView context, Bundle savedInstanceState, int categoryid){
+        cv = context;
         nh = new NoteDbHelper(context);
         nc = new NoteController(nh);
         this.categoryid = categoryid;
@@ -41,7 +43,7 @@ public class DeleteCategoryDialog extends DialogFragment {
                 .setPositiveButton("löschen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                     nc.deleteCategory(categoryid);
-                        lv.backToUperActivity();
+                        cv.loadList();
                     }
                 })
                 .setNegativeButton("abbruch", new DialogInterface.OnClickListener() {
