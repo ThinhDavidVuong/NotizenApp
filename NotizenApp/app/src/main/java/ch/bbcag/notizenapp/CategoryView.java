@@ -69,7 +69,7 @@ public class CategoryView extends AppCompatActivity {
                             lv.setBackgroundColor(Color.rgb(255 - 3* Math.round(event.getX()), 255 ,255 - 3 * Math.round(event.getX())));
                             return true;
                         }
-                        
+
                     case MotionEvent.ACTION_UP:
                         if (event.getX() - x < -DELTA) {
                             lv.setBackgroundColor(Color.rgb(255, 255, 255));

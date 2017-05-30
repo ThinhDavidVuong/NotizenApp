@@ -7,9 +7,6 @@ import android.provider.BaseColumns;
  */
 
 public class NoteContract {
-    // To prevent someone from accidentally instantiating the contract class,
-    // make the constructor private.
-    private NoteContract() {}
 
     /* Inner class that defines the table "Kategorie" */
     public static class CategoryEntry implements BaseColumns {
