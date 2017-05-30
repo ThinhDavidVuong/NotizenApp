@@ -12,22 +12,22 @@ import android.widget.EditText;
 import Model.CategoryModel;
 import NoteDB.NoteController;
 import NoteDB.NoteDbHelper;
-import ch.bbcag.notizenapp.MultiListView;
+import ch.bbcag.notizenapp.CategoryView;
 import ch.bbcag.notizenapp.R;
 
 public class UpdateCategoryDialog extends DialogFragment {
     private NoteDbHelper nh;
     private NoteController nc;
 
-    private MultiListView lv;
+    private CategoryView cv;
 
     private Bundle Test;
 
     private int categoryid;
     private String categoryname;
 
-    public UpdateCategoryDialog(MultiListView context, Bundle savedInstanceState, int categoryid, String categoryname){
-        lv = context;
+    public UpdateCategoryDialog(CategoryView context, Bundle savedInstanceState, int categoryid, String categoryname){
+        cv = context;
         nh = new NoteDbHelper(context);
         nc = new NoteController(nh);
         this.categoryid = categoryid;
@@ -51,7 +51,7 @@ public class UpdateCategoryDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         if(te.getText().toString() != ""){
                             nc.updateCategory(new CategoryModel(categoryid, te.getText().toString()));
-                            lv.updateCategoryname();
+                            cv.loadList();
                         }
                     }
                 })
