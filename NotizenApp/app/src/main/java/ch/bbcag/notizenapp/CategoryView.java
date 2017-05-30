@@ -1,6 +1,7 @@
 package ch.bbcag.notizenapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.app.FragmentManager;
@@ -32,11 +33,12 @@ public class CategoryView extends AppCompatActivity {
     private ArrayList<CategoryModel> Categories = new ArrayList<CategoryModel>();
     private CategoryView cv = this;
 
-    float historicX = Float.NaN, historicY = Float.NaN;
+    float x = Float.NaN;
     static final int DELTA = 50;
     enum Direction {LEFT, RIGHT;}
 
-    TextView lvSimple = (TextView) findViewById(R.id.category);
+
+    ListView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +49,44 @@ public class CategoryView extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("NotizApp");
 
-        lvSimple.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        lv = (ListView) findViewById(R.id.ListOfCategories);
 
+        lv.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        x = event.getX();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        if(event.getX() - x < 0){
+                            // Dynamic color red
+                            lv.setBackgroundColor(Color.rgb(255, 255 - Math.round(3 * event.getX()), 255 - Math.round(3 * event.getX())));
+                            return true;
+                        } else if(event.getX() - x > 0){
+                            // Dynamic color green
+                            lv.setBackgroundColor(Color.rgb(255 - 3* Math.round(event.getX()), 255 ,255 - 3 * Math.round(event.getX())));
+                            return true;
+                        }
+                        
+                    case MotionEvent.ACTION_UP:
+                        if (event.getX() - x < -DELTA) {
+                            lv.setBackgroundColor(Color.rgb(255, 255, 255));
+                            // Sliding from right to left
+                            return true;
+                        }
+                        else if (event.getX() - x > DELTA) {
+                            lv.setBackgroundColor(Color.rgb(255, 255, 255));
+                            // Sliding from left to right
+                            return true;
+                        }
+                        break;
+
+                    default:
+                        return false;
+                }
+                return false;
             }
         });
 
@@ -90,7 +126,7 @@ public class CategoryView extends AppCompatActivity {
 
     private void loadListsInListView() {
 
-        android.widget.ListView ListViewListsodlists = (android.widget.ListView) findViewById(R.id.Listofcatrogries);
+        android.widget.ListView ListViewListsodlists = (android.widget.ListView) findViewById(R.id.ListOfCategories);
         ListofCategories = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 
         for(int i = Categories.size()-1; i >= 0; i--){
