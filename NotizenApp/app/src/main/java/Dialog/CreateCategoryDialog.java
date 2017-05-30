@@ -38,7 +38,7 @@ public class CreateCategoryDialog extends DialogFragment {
         final View v = inflater.inflate(R.layout.dialog_add_category, null);
 
         //Build the dialog
-        builder.setMessage("Neue Kategotie")
+        builder.setMessage("Neue Kategorie")
                 .setView(v)
                 .setPositiveButton("erstellen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

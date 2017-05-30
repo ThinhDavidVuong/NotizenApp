@@ -37,7 +37,6 @@ public class CategoryView extends AppCompatActivity {
     static final int DELTA = 50;
     enum Direction {LEFT, RIGHT;}
 
-
     ListView lv;
 
     @Override
